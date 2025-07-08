@@ -1,0 +1,115 @@
+[
+    {
+      "firstName": "Alice",
+      "lastName": "Wang",
+      "email": "alice.wang@example.com",
+      "ssn": "123-45-6789",
+      "dateOfBirth": "1995-06-15",
+      "gender": "female",
+      "address": {
+        "street": "123 Main St Apt 4B",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10001"
+      },
+      "cellPhone": "212-555-0187",
+      "reference": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "phone": "917-555-0123",
+        "email": "john.doe@example.com",
+        "relationship": "Friend"
+      }
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Li",
+      "middleName": "Andrew",
+      "preferredName": "Bobby",
+      "email": "bob.li@example.org",
+      "ssn": "987-65-4321",
+      "dateOfBirth": "1992-11-22",
+      "gender": "male",
+      "profilePictureUrl": "https://placekitten.com/200/200",
+      "car": {
+        "make": "Toyota",
+        "model": "Camry",
+        "color": "Blue"
+      },
+      "citizenship": {
+        "status": "Green Card"
+      }
+    },
+    {
+      "firstName": "Carol",
+      "lastName": "Zhao",
+      "email": "carol.zhao@example.net",
+      "ssn": "555-66-7777",
+      "dateOfBirth": "1998-03-10",
+      "gender": "female",
+      "address": {
+        "street": "789 Oak Ave",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "73301"
+      },
+      "citizenship": {
+        "status": "Non-citizen",
+        "workAuthorization": "H1-B"
+      },
+      "emergencyContacts": [
+        {
+          "firstName": "Ellen",
+          "lastName": "Zhao",
+          "phone": "512-555-0199",
+          "email": "ellen.zhao@example.com",
+          "relationship": "Sister"
+        }
+      ]
+    },
+    {
+      "firstName": "David",
+      "lastName": "Chen",
+      "email": "d.chen@example.com",
+      "ssn": "222-33-4444",
+      "dateOfBirth": "1990-12-05",
+      "gender": "male",
+      "driversLicense": {
+        "number": "D1234567",
+        "expirationDate": "2025-12-05",
+        "documentUrl": "https://example.com/docs/david_license.pdf"
+      },
+      "citizenship": {
+        "status": "Non-citizen",
+        "workAuthorization": "F1(CPT/OPT)",
+        "optReceiptUploaded": true,
+        "visaStartDate": "2024-07-01",
+        "visaEndDate": "2026-06-30"
+      }
+    },
+    {
+      "firstName": "Eva",
+      "lastName": "Liu",
+      "email": "eva.liu@example.com",
+      "ssn": "333-44-5555",
+      "dateOfBirth": "1997-08-30",
+      "gender": "female",
+      "workPhone": "312-555-0147",
+      "emergencyContacts": [
+        {
+          "firstName": "Michael",
+          "lastName": "Liu",
+          "phone": "312-555-0168",
+          "email": "michael.liu@example.com",
+          "relationship": "Father"
+        },
+        {
+          "firstName": "Sophia",
+          "lastName": "Liu",
+          "phone": "312-555-0172",
+          "email": "sophia.liu@example.com",
+          "relationship": "Mother"
+        }
+      ]
+    }
+  ]
