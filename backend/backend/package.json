@@ -32,6 +32,7 @@
     "jsonwebtoken": "^9.0.2",
     "module-alias": "^2.2.3",
     "mongodb": "^6.17.0",
+    "mongoose": "^8.16.2",
     "morgan": "^1.10.0",
     "uuid": "^11.1.0"
   },
@@ -50,7 +51,7 @@
     "@types/module-alias": "^2.0.4",
     "@types/mongodb": "^4.0.6",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.12",
     "@types/supertest": "^6.0.3",
     "eslint": "^9.30.1",
     "eslint-plugin-n": "^17.21.0",

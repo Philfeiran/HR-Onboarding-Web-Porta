@@ -13,7 +13,7 @@ export const endpoints = {
 
     //employee
     getAllEmployeesEndpoint: `${employeeRoute}`,
-
+    getEmployeeByEmailEndpoint: (email: string) => `${employeeRoute}/${email}`,
 
     //registration
     getTokenEndpoint: `${registrationRoute}/create`,
