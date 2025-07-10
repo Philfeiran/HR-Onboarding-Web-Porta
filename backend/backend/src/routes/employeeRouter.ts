@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { EmployeeController } from '../controllers/employeeController';
-import { authenticate, requireHR } from '../middleware/authMiddleware';
+import { authenticate, requireHR, requireRole } from '../middleware/authMiddleware';
 
 const router = Router();
 const employeeController = new EmployeeController();
@@ -15,5 +15,9 @@ router.get('', authenticate, requireHR, async (req: Request, res: Response, next
     await employeeController.getAllEmployee(req, res, next);
 });
 
+// 获取员工信息 - 需要认证
+router.get('/:email', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    await employeeController.getEmployeeByEmail(req, res, next);
+});
 
 export default router; 

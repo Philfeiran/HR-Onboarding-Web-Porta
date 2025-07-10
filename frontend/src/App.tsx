@@ -9,7 +9,8 @@ import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/empl
 import LoginPage from './pages/loginPage';
 import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
 import RegistrationPage from './pages/employeesPage/pages/registration';
-
+import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
+import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 
 function AppRoutes() {
   const {isAuthenticated,user} = useAuth();
@@ -23,7 +24,15 @@ function AppRoutes() {
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
      
-
+      {/* 员工端路由 */}
+      <Route 
+        path="/employee" 
+        element={<ProtectedRoute requiredRole='Employee'><EmployeeDashboardPage /></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/onboarding-application" 
+        element={<ProtectedRoute requiredRole='Employee'><OnboardingApplicationPage/></ProtectedRoute>}
+      />
       {/* 默认路由 */} 
       <Route 
         path="/" 

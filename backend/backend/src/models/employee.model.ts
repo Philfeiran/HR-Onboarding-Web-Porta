@@ -29,6 +29,10 @@ export class EmployeeModel{
         return result
     }
 
+    async getEmployeeByEmail(email: string) {
+        const result = await this.collection.findOne({ email });
+        return result;
+    }
 
 }
 
