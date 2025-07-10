@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchEmployees } from '../../../redux/slice/employeeSlice';
-import type { Employee } from '../../../redux/slice/employeeSlice';
+import type Employee from '../../../types/employee.types';
 import type { RootState, AppDispatch } from '../../../redux/store';
 import NavBar from '../navBar/navBar';
 
