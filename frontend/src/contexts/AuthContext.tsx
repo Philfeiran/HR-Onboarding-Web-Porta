@@ -33,6 +33,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     // 检查本地存储中是否有用户数据
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setUser(null);
+      localStorage.removeItem('user');
+    }
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {

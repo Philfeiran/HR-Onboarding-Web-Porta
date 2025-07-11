@@ -20,4 +20,14 @@ router.get('/:email', authenticate, async (req: Request, res: Response, next: Ne
     await employeeController.getEmployeeByEmail(req, res, next);
 });
 
+// 提交入职申请 - 需要认证
+router.post('/onboarding-application', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    await employeeController.submitOnboardingApplication(req, res, next);
+});
+
+// 更新员工个人信息 - 需要认证
+router.put('/personal-information', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    await employeeController.updateEmployeePersonalInformationByEmail(req, res, next);
+});
+
 export default router; 
