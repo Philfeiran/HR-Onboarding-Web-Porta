@@ -1,4 +1,4 @@
-export interface Employee {
+export default interface Employee {
   status?: "Never Submitted" | "Rejected" | "Pending" | "Approved";
   firstName?: string;
   lastName?: string;
@@ -7,20 +7,38 @@ export interface Employee {
   profilePicture?: string;
   ssn?: string;
   gender?: string;
-  email: string;
+  email?: string;
   dateOfBirth?: string;
-  currentAddress?: string;
-  phone?: string;
-  car?: string;
-  citizenship?: string;
-  visaStatus?: string;
+  currentAddress?: {
+    building?: string;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  cellPhone?: string;
+  workPhone?: string;
+  car?: {
+    make?: string;
+    model?: string;
+    color?: string;
+  } | null; // 汽车信息可能是一个对象或null
+  citizenshipOrPR?: string;
+  citizenshipStatus?: "Green Card" | "Citizen" | null;
+  workAuthorization?: {
+    type?: "H1-B" | "L2" | "F1(CPT/OPT)" | "H4" | "Other";
+    other?: string;
+    startDate?: string;
+    endDate?: string;
+    optReceipt?: string; // OPT收据可能是一个字符串
+  } | null; // 工作授权信息可能是一个对象或null
   driversLicense?: {
     driversLicenseNumber?: string;
     driversLicenseExpirationDate?: string;
     driversLicenseCopy?: string;
   } | null; // 可能是一个对象或null
   reference?: {
-    referenceFirstName: string;
+    referenceFirstName: string | undefined;
     referenceLastName: string;
     referenceMiddleName?: string;
     referenceEmail: string;
@@ -35,5 +53,4 @@ export interface Employee {
     email: string;
     relationship: string;
   }[];
-  uploadedFiles?: string[]; // 上传的文件列表
 }

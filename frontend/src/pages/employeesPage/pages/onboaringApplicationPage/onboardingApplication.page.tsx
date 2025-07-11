@@ -20,6 +20,9 @@ import { ReferenceSection } from "./components/ReferenceSection";
 import { EmergencyContactsSection } from "./components/EmergencyContactsSection";
 import EmployeeNavbar from "../../employeeNavbar/EmployeeNavbar";
 import type Employee from "../../../../types/employee.types";
+import { useAuth } from "../../../../contexts/AuthContext";
+import { employeeService } from "../../../../services/employeeService";
+import { useNavigate } from "react-router-dom";
 
 export default function OnboardingApplicationPage(): React.ReactNode {
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
@@ -27,6 +30,9 @@ export default function OnboardingApplicationPage(): React.ReactNode {
   const [driversLicenseCopy, setDriversLicenseCopy] = useState<File | null>(
     null
   );
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   const methods = useForm<OnboardingFormData>({
     resolver: zodResolver(onboardingApplicationSchema),
@@ -44,36 +50,84 @@ export default function OnboardingApplicationPage(): React.ReactNode {
     },
   });
 
-  const onSubmit = (data: OnboardingFormData) => {
+  const onSubmit = async (data: OnboardingFormData) => {
     console.log("表单数据:", data);
     console.log("头像文件:", profilePicture);
     console.log("OPT收据:", optReceipt);
     console.log("驾照副本:", driversLicenseCopy);
-    // const dataToSubmit: Employee = {
-    //   firstName: data.firstName,
-    //   lastName: data.lastName,
-    //   middleName: data.middleName,
-    //   preferredName: data.preferredName,
-    //   ssn: data.ssn,
-    //   gender: data.gender,
-    //   dateOfBirth: data.dob,
-    //   currentAddress: {
-    //     building: data.building,
-    //     street: data.street,
-    //     city: data.city,
-    //     state: data.state,
-    //     zip: data.zip,
-    //   },
-    //   cellPhone: data.cellPhone,
-    //   workPhone: data.workPhone,
-    //   car: {
-    //     make: data.carMake,
-    //     model: data.carModel,
-    //     color: data.carColor,
-    //   },
-    // }
-    // console.log("提交的数据:", dataToSubmit);
+    const dataToSubmit: Employee = {
+      status: "Pending",
+      firstName: data.firstName,
+      lastName: data.lastName,
+      middleName: data.middleName,
+      preferredName: data.preferredName,
+      // profilePicture: profilePicture
+      //   ? URL.createObjectURL(profilePicture)
+      //   : undefined,
+      ssn: data.ssn,
+      gender: data.gender,
+      dateOfBirth: data.dob,
+      currentAddress: {
+        building: data.building,
+        street: data.street,
+        city: data.city,
+        state: data.state,
+        zip: data.zip,
+      },
+      cellPhone: data.cellPhone,
+      workPhone: data.workPhone,
+      car: {
+        make: data.carMake,
+        model: data.carModel,
+        color: data.carColor,
+      },
+      citizenshipOrPR: data.isPermanentResidentOrCitizen,
+      citizenshipStatus: data.citizenshipStatus,
+      workAuthorization: {
+        type: data.workAuthorizationType,
+        other: data.workAuthorizationOther,
+        startDate: data.workAuthorizationStartDate,
+        endDate: data.workAuthorizationEndDate,
+        // optReceipt: optReceipt ? URL.createObjectURL(optReceipt) : undefined,
+      },
+      driversLicense: {
+        driversLicenseNumber: data.driversLicenseNumber,
+        driversLicenseExpirationDate: data.driversLicenseExpiration,
+        // driversLicenseCopy: driversLicenseCopy
+        //   ? URL.createObjectURL(driversLicenseCopy)
+        //   : undefined,
+      },
+      reference: {
+        referenceFirstName: data.referenceFirstName,
+        referenceLastName: data.referenceLastName,
+        referenceMiddleName: data.referenceMiddleName,
+        referenceEmail: data.referenceEmail,
+        referencePhone: data.referencePhone,
+        referenceRelationship: data.referenceRelationship,
+      },
+      emergencyContacts: data.emergencyContacts.map((contact) => ({
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        middleName: contact.middleName,
+        phone: contact.phone,
+        email: contact.email,
+        relationship: contact.relationship,
+      })),
+    };
+    console.log("提交的数据:", dataToSubmit);
     // 在这里处理表单提交
+    try {
+      await employeeService.submitOnboardingApplication(
+        user?.email || "",
+        dataToSubmit
+      );
+
+      console.log("提交成功");
+    } catch (error) {
+      console.error("提交出错", error);
+    }
+    methods.reset(); // 重置表单
+    navigate("/employees");
   };
 
   return (
