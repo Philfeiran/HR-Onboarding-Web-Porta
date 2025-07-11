@@ -11,9 +11,11 @@ import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
 import RegistrationPage from './pages/employeesPage/pages/registration';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
+import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
 
 function AppRoutes() {
   const {isAuthenticated,user} = useAuth();
+  
   return (
     <Routes>
       <Route path="/login" element={isAuthenticated?<Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/>:<LoginPage/>}/>
@@ -33,6 +35,11 @@ function AppRoutes() {
         path="/employee/onboarding-application" 
         element={<ProtectedRoute requiredRole='Employee'><OnboardingApplicationPage/></ProtectedRoute>}
       />
+      <Route 
+        path="/employee/personal-information" 
+        element={<ProtectedRoute requiredRole='Employee'><PersonalInformationPage/></ProtectedRoute>}
+      />
+
       {/* 默认路由 */} 
       <Route 
         path="/" 

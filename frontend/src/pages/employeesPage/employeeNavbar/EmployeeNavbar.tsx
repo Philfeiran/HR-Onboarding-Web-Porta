@@ -156,20 +156,44 @@ function EmployeeNavbar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => handlePageNavigation(page)}
-                sx={{ my: 2, color: "white", display: "block" }}
-                disabled={
-                  page !== "Home" &&
-                  page !== "Onboarding Application" &&
-                  currentEmployee?.status === "Never Submitted"
-                }
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={() => handlePageNavigation("Home")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Home
+            </Button>
+
+            <Button
+              onClick={() => handlePageNavigation("Onboarding Application")}
+              sx={{ my: 2, color: "white", display: "block" }}
+              disabled={currentEmployee?.status === "Pending" || currentEmployee?.status === "Approved"}
+            >
+              Onboarding Application
+            </Button>
+
+            <Button
+              onClick={() => handlePageNavigation("Personal Information")}
+              sx={{ my: 2, color: "white", display: "block" }}
+              disabled={currentEmployee?.status === "Never Submitted"}
+            >
+              Personal Information
+            </Button>
+
+            <Button
+              onClick={() => handlePageNavigation("Visa Status Management")}
+              sx={{ my: 2, color: "white", display: "block" }}
+              disabled={currentEmployee?.workAuthorization?.type !== "F1(CPT/OPT)"}
+            >
+              Visa Status Management
+            </Button>
+
+            <Button
+              onClick={() => handlePageNavigation("Housing")}
+              sx={{ my: 2, color: "white", display: "block" }}
+              disabled={currentEmployee?.status !== "Approved"}
+            >
+              Housing
+            </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
