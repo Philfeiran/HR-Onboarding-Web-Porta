@@ -43,6 +43,18 @@ export class RegistrationController{
         }
     }
 
+
+    async setRegistrationStatus(req:Request,res:Response,next:NextFunction): Promise<void>{
+        try{
+            const {token} = req.body;
+            const result = await this.registrationModel.setRegistrationStatus(token);
+            res.status(200);
+            res.json({result});
+        }catch(error){
+            next(error);
+        }
+    }
+
     async getAllRegistration(req:Request,res:Response,next:NextFunction): Promise<void>{
         try{
             const result = await this.registrationModel.getAllRegistration();

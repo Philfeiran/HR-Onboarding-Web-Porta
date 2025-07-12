@@ -41,6 +41,7 @@ export class RegistrationModel{
     async verifyRegistration(token:string){
         const result = await this.collection.findOne({token:token});
         // console.log(result);
+        // 改成enum？
         if (!result){
             return "unexist"
         }
@@ -51,6 +52,14 @@ export class RegistrationModel{
             return "expired"
         }
         return "valid";
+    }
+
+    async setRegistrationStatus(token:string){
+        const result = await this.collection.updateOne({token:token},{
+            $set:{
+                status:true
+            }
+        });
     }
 
 

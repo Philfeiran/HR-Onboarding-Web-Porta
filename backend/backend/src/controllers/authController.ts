@@ -8,7 +8,7 @@ export class AuthController{
     constructor(){
         this.authService = new AuthService();
     }
-
+    // 改成 前端同时还发送token，然后后端验证token是否有效，如果有效，则注册用户，设置token 为已使用，如果无效，则返回错误
     async registerUser(req:Request,res:Response,next:NextFunction){
         try{
             console.log(req.body);
