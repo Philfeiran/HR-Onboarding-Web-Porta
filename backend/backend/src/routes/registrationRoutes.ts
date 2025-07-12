@@ -12,6 +12,10 @@ router.post('/verify',async (req:Request,res:Response,next:NextFunction): Promis
     await registrationController.verifyRegistration(req,res,next);
 });
 
+router.post('/setStatus',async (req:Request,res:Response,next:NextFunction): Promise<void> => {
+    await registrationController.setRegistrationStatus(req,res,next);
+});
+
 router.get('',authenticate,requireHR,async (req:Request,res:Response,next:NextFunction): Promise<void> => {
     await registrationController.getAllRegistration(req,res,next);
 });
