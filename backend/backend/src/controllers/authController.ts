@@ -1,9 +1,8 @@
-import {Request,Response,NextFunction} from 'express';
-import {AuthService} from '../services/authService';
+import { Request, Response, NextFunction } from "express";
+import { AuthService } from "../services/authService";
 
-
-export class AuthController{
-    private authService:AuthService;
+export class AuthController {
+  private authService: AuthService;
 
     constructor(){
         this.authService = new AuthService();
@@ -42,40 +41,41 @@ export class AuthController{
         }
     }
 
-    async loginUser(req:Request,res:Response,next:NextFunction){
-        try{
-            const {email,password} = req.body;
-            const {user,token} = await this.authService.loginUser(email,password);
-            // console.log(user,token);
-            res.cookie('token',token,{httpOnly:true 
-                                        // ,secure:true
-                                        ,maxAge:3600000
-                                        ,sameSite:"lax"
-                                    });
+  async loginUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, password } = req.body;
+      const { user, token } = await this.authService.loginUser(email, password);
+      // console.log(user,token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        // ,secure:true
+        maxAge: 3600000,
+        sameSite: "lax",
+      });
 
-            res.status(200).json({role:user.role,userName:user.userName});
-        }catch(error){
-            if(error instanceof Error){
-                if(error.message === "User not found"){
-                    return res.status(404).json({
-                        error: "User not found",
-                        message: "用户不存在"
-                    });
-                }
-                
-                if(error.message === "Invalid password"){
-                    return res.status(401).json({
-                        error: "Invalid credentials",
-                        message: "密码错误"
-                    });
-                }
-            }
-            
-            console.error('Login error:', error);
-            res.status(500).json({
-                error: "Internal server error",
-                message: "服务器内部错误"
-            });
+      res.status(200).json({ role: user.role, userName: user.userName, email: user.email });
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "User not found") {
+          return res.status(404).json({
+            error: "User not found",
+            message: "用户不存在",
+          });
         }
+
+        if (error.message === "Invalid password") {
+          return res.status(401).json({
+            error: "Invalid credentials",
+            message: "密码错误",
+          });
+        }
+      }
+
+      console.error("Login error:", error);
+      res.status(500).json({
+        error: "Internal server error",
+        message: "服务器内部错误",
+      });
     }
+  }
 }
