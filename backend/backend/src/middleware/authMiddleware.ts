@@ -60,7 +60,7 @@ export class AuthMiddleware {
                     message: "用户未认证"
                 });
             }
-
+            
             if (req.user.role !== requiredRole) {
                 return res.status(HttpStatusCodes.FORBIDDEN).json({
                     error: "Forbidden",
@@ -85,6 +85,25 @@ export class AuthMiddleware {
             return res.status(HttpStatusCodes.FORBIDDEN).json({
                 error: "Forbidden",
                 message: "需要HR权限"
+            });
+        }
+
+        next();
+    };
+
+    // Employee 权限验证中间件
+    requireEmployee = (req: Request, res: Response, next: NextFunction) => {
+        if (!req.user) {
+            return res.status(HttpStatusCodes.UNAUTHORIZED).json({
+                error: "Access denied",
+                message: "用户未认证"
+            });
+        }
+
+        if (req.user.role !== "Employee") {
+            return res.status(HttpStatusCodes.FORBIDDEN).json({
+                error: "Forbidden",
+                message: "需要Employee权限"
             });
         }
 

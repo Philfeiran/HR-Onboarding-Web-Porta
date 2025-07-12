@@ -1,4 +1,4 @@
-import { type Employee } from "../types/employee.types";
+import type Employee from "../types/employee.types";
 import { getCollection } from "../db/dbService";
 import { config } from "../config/loadConfig";
 import {Collection, ObjectId} from 'mongodb';
@@ -29,6 +29,19 @@ export class EmployeeModel{
         return result
     }
 
+    async getEmployeeByEmail(email: string) {
+        const result = await this.collection.findOne({ email });
+        return result;
+    }
+
+    async updateEmployeeByEmail(email: string, employeeData: Partial<Employee>) {
+        const result = await this.collection.updateOne(
+            { email },
+            { $set: employeeData },
+            { upsert: true }
+        );
+        return result;
+    }
 
 }
 

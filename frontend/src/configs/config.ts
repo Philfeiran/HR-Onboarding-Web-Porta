@@ -13,7 +13,9 @@ export const endpoints = {
 
     //employee
     getAllEmployeesEndpoint: `${employeeRoute}`,
-
+    getEmployeeByEmailEndpoint: (email: string) => `${employeeRoute}/${email}`,
+    submitOnboardingApplicationEndpoint: `${employeeRoute}/onboarding-application`,
+    updateEmployeesPersonalInformationEndpoint: `${employeeRoute}/personal-information`,
 
     //registration
     getTokenEndpoint: `${registrationRoute}/create`,
