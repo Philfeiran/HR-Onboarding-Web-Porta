@@ -1,8 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HRDashboard } from './pages/hrPages/pages/hrDashboard';
 import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/employeeProfiles';
@@ -13,7 +11,7 @@ import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringAppl
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
 
-function AppRoutes() {
+function App() {
   const {isAuthenticated,user} = useAuth();
   
   return (
@@ -54,18 +52,5 @@ function AppRoutes() {
     </Routes>
   )
 }
-
-function App() {
-  return (
-    <Provider store={store}>
-      <AuthProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
-      </AuthProvider>
-    </Provider>
-  );
-}
-
 
 export default App

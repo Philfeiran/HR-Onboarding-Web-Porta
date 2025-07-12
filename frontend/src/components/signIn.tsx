@@ -1,9 +1,11 @@
 import { AppProvider } from '@toolpad/core/AppProvider';
-import { SignInPage, type AuthProvider } from '@toolpad/core/SignInPage';
+
 import { useTheme } from '@mui/material/styles';
 import { authService } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+
+import { SignInPage, type AuthProvider } from '@toolpad/core/SignInPage';
 
 
 
@@ -13,6 +15,13 @@ import { useAuth } from '../contexts/AuthContext';
 // preview-start
 const providers = [{ id: 'credentials', name: 'Email and Password' }];
 // preview-end
+
+// const providers = [
+//   { id: 'credentials', name: 'Email and Password' },
+//   { id: 'google',      name: 'Sign in with Google' },
+//   { id: 'github',      name: 'Sign in with GitHub' },
+// ];
+
 
 
 
@@ -49,7 +58,14 @@ export default function CredentialsSignInPage() {
       <SignInPage
         signIn={signIn}
         providers={providers}
-        slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }}
+        slotProps={{ 
+          emailField: { autoFocus: false }
+          , form: { noValidate: true }
+          // ,forgotPasswordLink: { href: '/forgot' }
+          
+          ,rememberMe:        { label: '下次自动登录' }
+          // ,submitButton: { fullWidth: true, variant: 'contained' }
+        }}
       />
     </AppProvider>
     // preview-end
