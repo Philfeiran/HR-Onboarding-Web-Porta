@@ -4,6 +4,7 @@ import { sendEmail } from '../../../services/emailJSServeice';
 import { endpoints } from '../../../configs/config';
 import http from '../../../utils/https';
 import {type Registration} from '../../../types/registration.types';
+// import { OnboadingApplicationReview } from './OnboardingApplicationReview/OnboadingApplicationReview';
 
 
 export const HiringManagement: React.FC = () => {
@@ -101,6 +102,7 @@ export const HiringManagement: React.FC = () => {
                     </table>
                 </div>
             </div>
+            {/* <OnboadingApplicationReview /> */}
         </div>
     )
 }

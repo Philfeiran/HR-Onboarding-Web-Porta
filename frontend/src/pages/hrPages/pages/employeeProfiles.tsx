@@ -20,22 +20,22 @@ export const employeeProfiles: React.FC = () => {
         if (!searchTerm.trim()) return employees;
         
         return employees.filter(employee => 
-            employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            employee.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+            (employee.firstName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (employee.lastName || '').toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [employees, searchTerm]);
 
     // 按姓氏字母排序
     const sortedEmployees = useMemo(() => {
         return [...filteredEmployees].sort((a, b) => 
-            a.lastName.localeCompare(b.lastName)
+            (a.lastName || '').localeCompare(b.lastName || '')
         );
     }, [filteredEmployees]);
 
     // 打开员工详细信息（新标签页）
     const openEmployeeProfile = (employee: Employee) => {
         const profileData = {
-            name: `${employee.firstName} ${employee.lastName}`,
+            name: `${employee.firstName || ''} ${employee.lastName || ''}`,
             ssn: employee.ssn,
             email: employee.email,
         };
@@ -137,8 +137,15 @@ export const employeeProfiles: React.FC = () => {
                                     <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'left' }}>
                                         Full Name
                                     </th>
+                            
                                     <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'left' }}>
                                         SSN
+                                    </th>
+                                    <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'left' }}>
+                                        Work Authorization Title
+                                    </th>
+                                    <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'left' }}>
+                                        Phone Number
                                     </th>
                                     <th style={{ padding: '12px', border: '1px solid #ddd', textAlign: 'left' }}>
                                         Email
@@ -160,11 +167,20 @@ export const employeeProfiles: React.FC = () => {
                                                     fontSize: '14px'
                                                 }}
                                             >
-                                                {employee.firstName} {employee.lastName}
+                                                {employee.firstName || ''} {employee.lastName || ''}
                                             </button>
                                         </td>
+                                        {/* SSN */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
                                             {employee.ssn}
+                                        </td>
+                                        {/* Work Authorization Title */}
+                                        <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                                            {employee.workAuthorizationTitle || 'N/A'}
+                                        </td>
+                                        {/* Phone Number */}
+                                        <td style={{ padding: '12px', border: '1px solid #ddd' }}>
+                                            {employee.phone || 'N/A'}
                                         </td>
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
                                             {employee.email}

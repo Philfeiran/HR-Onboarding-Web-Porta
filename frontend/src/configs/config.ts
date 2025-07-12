@@ -18,6 +18,7 @@ export const endpoints = {
     //registration
     getTokenEndpoint: `${registrationRoute}/create`,
     verifyTokenEndpoint: `${registrationRoute}/verify`,
+    setTokenStatusEndpoint: `${registrationRoute}/setStatus`,
 
     getAllRegistrationEndpoint: `${registrationRoute}`,
 

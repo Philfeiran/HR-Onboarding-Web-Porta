@@ -62,6 +62,12 @@ const RegistrationPage: React.FC = () => {
             setMessage('注册成功！您现在可以登录了。');
 
             //添加作废令牌逻辑
+            try {
+                await http.post(endpoints.setTokenStatusEndpoint, { token: searchParams.get('token') });
+            } catch (err) {
+                console.error('Failed to set token status:', err);
+            }
+
             setTimeout(() => {
                 navigate('/login');
             }, 3000);

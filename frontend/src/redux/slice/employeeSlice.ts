@@ -7,6 +7,8 @@ export interface Employee {
   lastName: string;
   ssn: string;
   email: string;
+  phone?: string;
+  workAuthorizationTitle?: string;
 }
 
 export const fetchEmployees = createAsyncThunk<
