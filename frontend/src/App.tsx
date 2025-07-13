@@ -7,6 +7,7 @@ import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/empl
 import LoginPage from './pages/loginPage';
 import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
 import HousingManagement from './pages/hrPages/pages/housingManagement/HousingManagement';
+import HousingAssignment from './pages/hrPages/pages/housingAssignment/HousingAssignment';
 import RegistrationPage from './pages/employeesPage/pages/registration';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
@@ -28,6 +29,7 @@ function App() {
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
       <Route path="/hr/housing" element={<ProtectedRoute requiredRole="HR"><HousingManagement/></ProtectedRoute>}/>
+      <Route path="/hr/housing-assignment" element={<ProtectedRoute requiredRole="HR"><HousingAssignment/></ProtectedRoute>}/>
      
       {/* 员工端路由 */}
       <Route 

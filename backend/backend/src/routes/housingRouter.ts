@@ -6,6 +6,11 @@ const router = Router();
 const housingController = new HousingController();
 
 // Housing Details Routes
+// Get all housing details (HR only) - This must come before /details/:email
+router.get('/details', authenticate, requireHR, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  await housingController.getAllHousingDetails(req, res, next);
+});
+
 // Get housing details for an employee
 router.get('/details/:email', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   await housingController.getHousingDetails(req, res, next);

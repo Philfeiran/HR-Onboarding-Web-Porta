@@ -151,6 +151,16 @@ export class HousingController {
   }
 
   // HR Methods
+  async getAllHousingDetails(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const housingDetails = await this.housingModel.getAllHousingDetails();
+      res.status(200).json(housingDetails);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   async getAllFacilityReports(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const reports = await this.housingModel.getAllFacilityReports();

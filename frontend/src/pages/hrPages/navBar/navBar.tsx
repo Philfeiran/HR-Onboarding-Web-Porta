@@ -83,7 +83,8 @@ const pages = [
   { name: '员工管理', icon: <People />, key: 'Employee' },
   { name: '签证状态管理', icon: <Business />, key: 'Visa Status Management' },
   { name: '招聘管理', icon: <Work />, key: 'Hiring Management' },
-  { name: '住房管理', icon: <HomeWork />, key: 'Housing Management' },
+  { name: '设施报告管理', icon: <HomeWork />, key: 'Housing Management' },
+  { name: '住房分配', icon: <HomeWork />, key: 'Housing Assignment' },
 ];
 
 const settings = ['退出登录'];
@@ -134,6 +135,9 @@ function ResponsiveAppBar() {
         break;
       case 'Housing Management':
         navigate('/hr/housing');
+        break;
+      case 'Housing Assignment':
+        navigate('/hr/housing-assignment');
         break;
       default:
         break;

@@ -27,6 +27,7 @@ export const endpoints = {
 
     // Housing endpoints
     getHousingDetailsEndpoint: (email: string) => `${housingRoute}/details/${email}`,
+    getAllHousingDetailsEndpoint: `${housingRoute}/details`,
     createHousingDetailsEndpoint: `${housingRoute}/details`,
     updateHousingDetailsEndpoint: `${housingRoute}/details`,
     createFacilityReportEndpoint: `${housingRoute}/facility-reports`,

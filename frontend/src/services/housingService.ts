@@ -84,6 +84,15 @@ export const housingService = {
   },
 
   // HR Methods
+  async getAllHousingDetails(): Promise<HousingDetails[]> {
+    try {
+      const response = await http.get(endpoints.getAllHousingDetailsEndpoint);
+      return response.data;
+    } catch (error: any) {
+      throw new Error("Failed to fetch all housing details");
+    }
+  },
+
   async getAllFacilityReports(): Promise<FacilityReport[]> {
     try {
       const response = await http.get(endpoints.getAllFacilityReportsEndpoint);
