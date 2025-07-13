@@ -12,4 +12,12 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
     await authController.loginUser(req, res, next);
 });
 
+router.post('/check-email', async (req: Request, res: Response, next: NextFunction) => {
+    await authController.checkEmailExists(req, res, next);
+});
+
+router.post('/check-username', async (req: Request, res: Response, next: NextFunction) => {
+    await authController.checkUsernameExists(req, res, next);
+});
+
 export default router;

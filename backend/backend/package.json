@@ -15,6 +15,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@emailjs/nodejs": "^5.0.2",
     "@types/cors": "^2.8.19",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",

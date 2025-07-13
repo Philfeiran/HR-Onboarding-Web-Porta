@@ -24,9 +24,10 @@ export class AuthService{
         this.jwtExpiration = config.jwtExpiration!;
     }
 
-    async registerUser(userName:string,email:string,password:string,role:"HR" | "Employee"):Promise<{user:InsertOneResult,token:string}>{
+    async registerUser(userName:string,email:string,password:string,role: "Employee"):Promise<{user:InsertOneResult,token:string}>{
         console.log(userName,email);
         const duplicateCheck = await this.userModel.duplicateCheck(email,userName);
+        
         if(duplicateCheck){
             throw new Error("User already exists");
         }
