@@ -79,6 +79,7 @@ const pages = [
   { name: "个人信息", icon: <Person />, key: "Personal Information" },
   { name: "签证管理", icon: <Business />, key: "Visa Status Management" },
   { name: "住房", icon: <Home />, key: "Housing" },
+  { name: "设施报告", icon: <Home />, key: "Facility Reports" },
 ];
 
 const settings = ["退出登录"];
@@ -136,6 +137,9 @@ function EmployeeNavbar() {
         break;
       case "Housing":
         navigate("/employee/housing");
+        break;
+      case "Facility Reports":
+        navigate("/employee/facility-reports");
         break;
       default:
         break;

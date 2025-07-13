@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRouter';
 import employeeRoutes from './routes/employeeRouter';
 import registrationRoutes from './routes/registrationRoutes';
+import housingRoutes from './routes/housingRouter';
 // import { connectDB } from './db/dbService';
 import {config} from './config/loadConfig';
 
@@ -44,8 +45,8 @@ async function start() {
 
   app.use('/api/auth', authRoutes);
   app.use('/api/employees', employeeRoutes);
-
   app.use('/api/registration', registrationRoutes);
+  app.use('/api/housing', housingRoutes);
 
   // 错误处理中间件
   app.use((err: any, req: any, res: any, next: any) => {

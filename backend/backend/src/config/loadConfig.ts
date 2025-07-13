@@ -26,6 +26,11 @@ export const config = {
 
   registrationCollectionName: process.env.EMPLOYEE_registration_COLLECTION_NAME,
 
+  // Housing
+  housingCollectionName: process.env.HOUSING_COLLECTION_NAME,
+  housingDatabaseName: process.env.HOUSING_DATABASE_NAME,
+  facilityReportsCollectionName: process.env.FACILITY_REPORTS_COLLECTION_NAME,
+
 
   //JWT token
   jwtSecret: process.env.JWT_SECRET,
