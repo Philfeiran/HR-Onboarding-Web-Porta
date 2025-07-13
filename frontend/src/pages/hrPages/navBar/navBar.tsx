@@ -133,7 +133,7 @@ function ResponsiveAppBar() {
         navigate('/hr/hiring');
         break;
       case 'Housing Management':
-        // navigate('/hr/housing');
+        navigate('/hr/housing');
         break;
       default:
         break;
@@ -215,8 +215,7 @@ function ResponsiveAppBar() {
                   onClick={() => handlePageNavigation(page.key)}
                   startIcon={page.icon}
                   disabled={
-                    page.key === 'Visa Status Management' || 
-                    page.key === 'Housing Management'
+                    page.key === 'Visa Status Management'
                   }
                 >
                   {page.name}
