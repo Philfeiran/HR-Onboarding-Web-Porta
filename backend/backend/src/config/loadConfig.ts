@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import path from "path";
 
+//改成使用其他包来验证环境变量
+
 // 根据NODE_ENV加载对应的环境配置文件
 const envFile = process.env.NODE_ENV === 'production' 
   ? '.env.production' 
@@ -31,6 +33,16 @@ export const config = {
 
   //Password
   passwordSaltRounds: process.env.BCRYPT_SALT_ROUNDS,
+
+
+  //EmailJS
+  emailjsServiceId: process.env.EMAILJS_SERVICE_ID,
+  emailjsTemplateId: process.env.EMAILJS_TEMPLATE_ID,
+  emailjsPublicKey: process.env.EMAILJS_PUBLIC_KEY,
+  emailjsPrivateKey: process.env.EMAILJS_PRIVATE_KEY,
+
+  //Frontend URL
+  frontendUrl: process.env.FRONTEND_URL,
 };
 
 // 验证必需的配置
