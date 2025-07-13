@@ -26,6 +26,16 @@ export class UserModel{
         return user !== null;
     }
 
+    async checkEmailExists(email:string){
+        const user = await this.collection.findOne({email});
+        return user !== null;
+    }
+
+    async checkUsernameExists(userName:string){
+        const user = await this.collection.findOne({userName});
+        return user !== null;
+    }
+
     async createUser(userName:string,email:string,password:string,role:"HR" | "Employee"){
         const userData = {userName,email,password,role};
         const result = await this.collection.insertOne(userData);

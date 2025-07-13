@@ -1,24 +1,110 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "../services/authService";
+import { RegistrationModel } from "../models/registration.model";
+import { RegistrationTokenStatus } from "../types/registration.types";
+import { UserModel } from "../models/user.model";
 
 export class AuthController {
   private authService: AuthService;
+  private registrationModel: RegistrationModel;
+  private userModel: UserModel;
 
     constructor(){
         this.authService = new AuthService();
+        this.registrationModel = new RegistrationModel();
+        this.userModel = new UserModel();
     }
+
+    async checkEmailExists(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { email } = req.body;
+            
+            if (!email) {
+                return res.status(400).json({
+                    error: "Missing email",
+                    message: "邮箱为必填项"
+                });
+            }
+
+            const emailExists = await this.userModel.checkEmailExists(email);
+            
+            res.status(200).json({
+                exists: emailExists,
+                message: emailExists ? "邮箱已存在" : "邮箱可用"
+            });
+        } catch (error) {
+            console.error('Check email error:', error);
+            res.status(500).json({
+                error: "Internal server error",
+                message: "服务器内部错误"
+            });
+        }
+    }
+
+    async checkUsernameExists(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { userName } = req.body;
+            
+            if (!userName) {
+                return res.status(400).json({
+                    error: "Missing userName",
+                    message: "用户名为必填项"
+                });
+            }
+
+            const usernameExists = await this.userModel.checkUsernameExists(userName);
+            
+            res.status(200).json({
+                exists: usernameExists,
+                message: usernameExists ? "用户名已存在" : "用户名可用"
+            });
+        } catch (error) {
+            console.error('Check username error:', error);
+            res.status(500).json({
+                error: "Internal server error",
+                message: "服务器内部错误"
+            });
+        }
+    }
+
     // 改成 前端同时还发送token，然后后端验证token是否有效，如果有效，则注册用户，设置token 为已使用，如果无效，则返回错误
     async registerUser(req:Request,res:Response,next:NextFunction){
         try{
             console.log(req.body);
-            const {userName,email,password} = req.body;
-            if (!userName || !email || !password) {
+            const {userName,email,password,url_token} = req.body;
+            if (!userName || !email || !password||!url_token) {
                 return res.status(400).json({
                     error: "Missing required fields",
                     message: "请提供用户名、邮箱、密码和角色"
                 });
             }
+
+            const tokenStatus:RegistrationTokenStatus = await this.registrationModel.verifyRegistration(url_token);
+            if (tokenStatus === RegistrationTokenStatus.UNEXIST){
+                return res.status(400).json({
+                    error: "Invalid token",
+                    message: "无效的token"
+                });
+            }else if (tokenStatus === RegistrationTokenStatus.ALREADY_USED){
+                return res.status(400).json({
+                    error: "Token already used",
+                    message: "token已使用"
+                });
+            }else if (tokenStatus === RegistrationTokenStatus.EXPIRED){ 
+                return res.status(400).json({
+                    error: "Token expired",
+                    message: "token已过期"
+                });
+            }
+            
+            // const tokenStatus = await registrationModel.verifyRegistration(url_token);
             const {user,token} = await this.authService.registerUser(userName,email,password,"Employee");
+
+            //这里有必要catch么？
+            await this.registrationModel.setRegistrationStatus(url_token);
+
+            
+
             // console.log(user,token);
             res.status(201).json({user,token});
         }catch(error){

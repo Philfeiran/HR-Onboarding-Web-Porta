@@ -1,12 +1,12 @@
-import { type Registration } from "../types/registration.types";
+import { type Registration, RegistrationTokenStatus } from "../types/registration.types";
 import { getCollection } from "../db/dbService";
 import { config } from "../config/loadConfig";
 import {Collection, ObjectId} from 'mongodb';
 import { v4 as uuidv4 } from 'uuid';
 
 
-
-const expireHours:number = 1000 * 60 * 60 * 3;
+// 先设置高一点方便测试
+const expireHours:number = 1000 * 60 * 60 * 24;
 
 
 export class RegistrationModel{
@@ -38,20 +38,22 @@ export class RegistrationModel{
         return token;
     }
 
+    
+
     async verifyRegistration(token:string){
         const result = await this.collection.findOne({token:token});
         // console.log(result);
         // 改成enum？
         if (!result){
-            return "unexist"
+            return RegistrationTokenStatus.UNEXIST;
         }
         if (result.status){
-            return "already_used"
+            return RegistrationTokenStatus.ALREADY_USED;
         }
         if (result.time.getTime() + expireHours < Date.now()){
-            return "expired"
+            return RegistrationTokenStatus.EXPIRED;
         }
-        return "valid";
+        return RegistrationTokenStatus.VALID;
     }
 
     async setRegistrationStatus(token:string){
