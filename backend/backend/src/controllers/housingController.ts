@@ -45,7 +45,7 @@ export class HousingController {
         return;
       }
       
-      const result = await this.housingModel.updateHousingDetails(email, housingData);
+      const result = await this.housingModel.updateHousingDetailsByEmail(email, housingData);
       res.status(200).json({ message: "Housing details updated successfully", result });
     } catch (error) {
       console.log(error);
