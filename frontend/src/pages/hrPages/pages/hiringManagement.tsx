@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../navBar/navBar';
-import { sendEmail } from '../../../services/emailJSServeice';
 import { endpoints } from '../../../configs/config';
 import http from '../../../utils/https';
 import {type Registration} from '../../../types/registration.types';
@@ -33,11 +32,10 @@ export const HiringManagement: React.FC = () => {
         }
 
         try{
-            const response = await http.post<{token: string}>(endpoints.getTokenEndpoint, {email,name});
-            const token = response.data.token;
-            const url = `${endpoints.registrationURL}${token}`;
-            await sendEmail({ name, email, url });
+            const response = await http.post<{message: string}>(endpoints.sendEmailEndpoint, {email,name});
             alert('Email sent successfully');
+            setName('');
+            setEmail('');
             fetchRegistrations(); // Refresh the list
         }catch(error){
             console.error('Error sending email:', error);
