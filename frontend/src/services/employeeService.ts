@@ -32,4 +32,13 @@ export const employeeService = {
       throw new Error("更新个人信息失败，请稍后重试");
     }
   },
+
+  async getEmployeeById(id: string): Promise<Employee> {
+    try {
+      const response = await http.get(`${endpoints.getAllEmployeesEndpoint}/id/${id}`);
+      return response.data;
+    } catch (error: any) {
+      throw new Error('无法获取员工信息');
+    }
+  },
 };

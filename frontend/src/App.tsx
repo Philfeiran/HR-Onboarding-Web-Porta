@@ -10,6 +10,7 @@ import RegistrationPage from './pages/employeesPage/pages/registration';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
+import EmployeeProfilePage from './pages/hrPages/pages/EmployeeProfilePage';
 
 function App() {
   const {isAuthenticated,user} = useAuth();
@@ -23,6 +24,7 @@ function App() {
       <Route path="/hr" element={<ProtectedRoute requiredRole="HR"><HRDashboard/></ProtectedRoute>}/>
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
+      <Route path="/hr/employee/:id" element={<ProtectedRoute requiredRole="HR"><EmployeeProfilePage/></ProtectedRoute>} />
      
       {/* 员工端路由 */}
       <Route 

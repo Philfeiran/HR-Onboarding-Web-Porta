@@ -4,6 +4,7 @@ import { fetchEmployees } from '../../../redux/slice/employeeSlice';
 import type Employee from '../../../types/employee.types';
 import type { RootState, AppDispatch } from '../../../redux/store';
 import NavBar from '../navBar/navBar';
+import { Link } from 'react-router-dom';
 
 export const employeeProfiles: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -156,19 +157,21 @@ export const employeeProfiles: React.FC = () => {
                                 {sortedEmployees.map((employee, index) => (
                                     <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            <button
-                                                onClick={() => openEmployeeProfile(employee)}
+                                            <Link
+                                                to={`/hr/employee/${employee._id}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 style={{
-                                                    background: 'none',
-                                                    border: 'none',
                                                     color: '#007bff',
                                                     textDecoration: 'underline',
                                                     cursor: 'pointer',
-                                                    fontSize: '14px'
+                                                    fontSize: '14px',
+                                                    background: 'none',
+                                                    border: 'none',
                                                 }}
                                             >
                                                 {employee.firstName || ''} {employee.lastName || ''}
-                                            </button>
+                                            </Link>
                                         </td>
                                         {/* SSN */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>

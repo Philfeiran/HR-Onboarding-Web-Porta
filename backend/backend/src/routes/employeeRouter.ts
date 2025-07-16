@@ -1,6 +1,10 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { EmployeeController } from '../controllers/employeeController';
-import { authenticate, requireHR, requireRole } from '../middleware/authMiddleware';
+import { Router, Request, Response, NextFunction } from "express";
+import { EmployeeController } from "../controllers/employeeController";
+import {
+  authenticate,
+  requireHR,
+  requireRole,
+} from "../middleware/authMiddleware";
 
 const router = Router();
 const employeeController = new EmployeeController();
@@ -11,23 +15,53 @@ const employeeController = new EmployeeController();
 // });
 
 // 获取所有员工 - 需要HR权限
-router.get('', authenticate, requireHR, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+router.get(
+  "",
+  authenticate,
+  requireHR,
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await employeeController.getAllEmployee(req, res, next);
-});
+  }
+);
 
 // 获取员工信息 - 需要认证
-router.get('/:email', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+router.get(
+  "/:email",
+  authenticate,
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await employeeController.getEmployeeByEmail(req, res, next);
-});
+  }
+);
+
+// 获取员工信息 by _id - 需要认证
+router.get(
+  "/id/:id",
+  authenticate,
+  (req: Request, res: Response, next: NextFunction) => {
+    employeeController.getEmployeeById(req, res, next);
+  }
+);
 
 // 提交入职申请 - 需要认证
-router.post('/onboarding-application', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+router.post(
+  "/onboarding-application",
+  authenticate,
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await employeeController.submitOnboardingApplication(req, res, next);
-});
+  }
+);
 
 // 更新员工个人信息 - 需要认证
-router.put('/personal-information', authenticate, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    await employeeController.updateEmployeePersonalInformationByEmail(req, res, next);
-});
+router.put(
+  "/personal-information",
+  authenticate,
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    await employeeController.updateEmployeePersonalInformationByEmail(
+      req,
+      res,
+      next
+    );
+  }
+);
 
-export default router; 
+export default router;
