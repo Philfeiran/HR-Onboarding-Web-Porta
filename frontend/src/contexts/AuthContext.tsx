@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { LoginResponse } from '../services/authService';
+import { authService } from '../services/authService';
 
 interface AuthContextType {
   user: LoginResponse | null;
@@ -32,22 +33,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   console.log(user);
 
   useEffect(() => {
-    // 检查本地存储中是否有用户数据
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setUser(null);
-      localStorage.removeItem('user');
-    }
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error('解析用户数据失败:', error);
+    // On app load, check with backend if user is authenticated
+    setIsLoading(true);
+    authService.getCurrentUser().then((userData) => {
+      if (userData) {
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        setUser(null);
         localStorage.removeItem('user');
       }
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    });
   }, []);
 
   const login = (userData: LoginResponse) => {
