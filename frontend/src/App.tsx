@@ -13,11 +13,12 @@ import PersonalInformationPage from './pages/employeesPage/pages/personalInforma
 import EmployeeProfilePage from './pages/hrPages/pages/EmployeeProfilePage';
 
 function App() {
-  const {isAuthenticated,user} = useAuth();
+  const {isAuthenticated, user, isLoading} = useAuth();
+  if (isLoading) return <div>Loading...</div>;
   
   return (
     <Routes>
-      <Route path="/login" element={isAuthenticated?<Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/>:<LoginPage/>}/>
+      <Route path="/login" element={isAuthenticated ? <Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/> : <LoginPage/>}/>
 
       <Route path="/registration" element={<RegistrationPage />} />
 

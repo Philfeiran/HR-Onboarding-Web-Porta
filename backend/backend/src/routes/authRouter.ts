@@ -19,6 +19,13 @@ router.post(
   }
 );
 
+router.post(
+  "/logout",
+  async (req: Request, res: Response, next: NextFunction) => {
+    await authController.logoutUser(req, res, next);
+  }
+);
+
 router.get("/me", authenticate, (req: Request, res: Response) => {
   if (req.user) {
     res.status(200).json(req.user);

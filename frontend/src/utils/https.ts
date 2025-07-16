@@ -37,10 +37,10 @@ http.interceptors.request.use(config => {
 
 // 响应拦截器：可以做统一的错误处理、状态码判断
 http.interceptors.response.use(res => res, err => {
-  if (err.response?.status === 401) {
-    // 自动跳转登录页或刷新 token
-    redirectToLogin();
-  }
+  // if (err.response?.status === 401) {
+  //   // 自动跳转登录页或刷新 token
+  //   redirectToLogin();
+  // }
   return Promise.reject(err);
 });
 

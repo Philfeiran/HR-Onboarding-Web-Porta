@@ -10,6 +10,7 @@ export const endpoints = {
     loginEndpoint: `${authRoute}/login`,
     registerEndpoint: `${authRoute}/register`,
     meEndpoint: `${authRoute}/me`,
+    logoutEndpoint: `${authRoute}/logout`,
 
 
     //employee

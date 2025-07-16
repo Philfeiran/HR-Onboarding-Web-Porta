@@ -35,5 +35,8 @@ export const authService = {
     } catch (error: any) {
       return null;
     }
+  },
+  async logout(): Promise<void> {
+    await http.post(endpoints.logoutEndpoint);
   }
 }; 
