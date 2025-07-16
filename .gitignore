@@ -71,3 +71,4 @@ database.test.json
 # Ignore all .txt files
 *.txt .env.development
 .env.development
+backend/backend/config/.env.development
