@@ -5,12 +5,13 @@ const employeeRoute = `${backendUrl}/api/employees`;
 const registrationRoute = `${backendUrl}/api/registration`;
 
 export const endpoints = {
-    
     // Endpoints
     loginEndpoint: `${authRoute}/login`,
     registerEndpoint: `${authRoute}/register`,
     checkEmailEndpoint: `${authRoute}/check-email`,
     checkUsernameEndpoint: `${authRoute}/check-username`,
+    meEndpoint: `${authRoute}/me`,
+    logoutEndpoint: `${authRoute}/logout`,
 
     //employee
     getAllEmployeesEndpoint: `${employeeRoute}`,
