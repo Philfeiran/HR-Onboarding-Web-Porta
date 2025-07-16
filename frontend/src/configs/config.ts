@@ -3,6 +3,7 @@ console.log(backendUrl)
 const authRoute = `${backendUrl}/api/auth`;
 const employeeRoute = `${backendUrl}/api/employees`;
 const registrationRoute = `${backendUrl}/api/registration`;
+const housingRoute = `${backendUrl}/api/housing`;
 
 export const endpoints = {
     
@@ -24,6 +25,18 @@ export const endpoints = {
     setTokenStatusEndpoint: `${registrationRoute}/setStatus`,
 
     getAllRegistrationEndpoint: `${registrationRoute}`,
+
+    // Housing endpoints
+    getHousingDetailsEndpoint: (email: string) => `${housingRoute}/details/${email}`,
+    getAllHousingDetailsEndpoint: `${housingRoute}/details`,
+    createHousingDetailsEndpoint: `${housingRoute}/details`,
+    updateHousingDetailsEndpoint: `${housingRoute}/details`,
+    createFacilityReportEndpoint: `${housingRoute}/facility-reports`,
+    getFacilityReportsByEmployeeEndpoint: (email: string) => `${housingRoute}/facility-reports/${email}`,
+    getFacilityReportByIdEndpoint: (reportId: string) => `${housingRoute}/facility-reports/report/${reportId}`,
+    addCommentToReportEndpoint: `${housingRoute}/facility-reports/comment`,
+    updateReportStatusEndpoint: `${housingRoute}/facility-reports/status`,
+    getAllFacilityReportsEndpoint: `${housingRoute}/facility-reports`,
 
     registrationURL: `http://localhost:5173/registration?token=`,
 }
