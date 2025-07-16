@@ -53,4 +53,15 @@ export default interface Employee {
     email: string;
     relationship: string;
   }[];
+  // HR反馈相关字段
+  hrFeedback?: {
+    comment?: string;
+    reviewedBy?: string;
+    reviewedAt?: Date;
+    updatedAt?: Date;
+  };
+  // 申请提交时间
+  submittedAt?: Date;
+  // 状态更新时间
+  statusUpdatedAt?: Date;
 }

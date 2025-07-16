@@ -3,3 +3,7 @@ dist/
 temp/
 **/**/*.log
 config.js
+.env.development
+.env.*
+
+!.env.example

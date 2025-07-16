@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Badge from "@mui/material/Badge";
-import { Home, Person, Work, Home as HomeIcon, Business } from "@mui/icons-material";
+import { Home, Person, Work, Home as HomeIcon, Business, CloudUpload } from "@mui/icons-material";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -80,6 +80,7 @@ const pages = [
   { name: "签证管理", icon: <Business />, key: "Visa Status Management" },
   { name: "住房", icon: <Home />, key: "Housing" },
   { name: "设施报告", icon: <Home />, key: "Facility Reports" },
+  { name: "文件上传测试", icon: <CloudUpload />, key: "File Upload Test" },
 ];
 
 const settings = ["退出登录"];
@@ -140,6 +141,9 @@ function EmployeeNavbar() {
         break;
       case "Facility Reports":
         navigate("/employee/facility-reports");
+        break;
+      case "File Upload Test":
+        navigate("/employee/file-upload-test");
         break;
       default:
         break;

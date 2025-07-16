@@ -18,6 +18,8 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.844.0",
+    "@aws-sdk/s3-request-presigner": "^3.846.0",
     "@emailjs/nodejs": "^5.0.2",
     "@types/cors": "^2.8.19",
     "bcrypt": "^6.0.0",
@@ -38,6 +40,7 @@
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.2",
     "morgan": "^1.10.0",
+    "multer": "^2.0.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
@@ -55,6 +58,7 @@
     "@types/module-alias": "^2.0.4",
     "@types/mongodb": "^4.0.6",
     "@types/morgan": "^1.9.10",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.0.12",
     "@types/supertest": "^6.0.3",
     "cross-env": "^7.0.3",

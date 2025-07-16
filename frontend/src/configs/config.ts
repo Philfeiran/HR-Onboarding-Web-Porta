@@ -4,12 +4,15 @@ const authRoute = `${backendUrl}/api/auth`;
 const employeeRoute = `${backendUrl}/api/employees`;
 const registrationRoute = `${backendUrl}/api/registration`;
 const housingRoute = `${backendUrl}/api/housing`;
+const fileRoute = `${backendUrl}/api/files`;
 
 export const endpoints = {
     
     // Endpoints
     loginEndpoint: `${authRoute}/login`,
     registerEndpoint: `${authRoute}/register`,
+    checkEmailEndpoint: `${authRoute}/check-email`,
+    checkUsernameEndpoint: `${authRoute}/check-username`,
 
 
     //employee
@@ -18,12 +21,26 @@ export const endpoints = {
     submitOnboardingApplicationEndpoint: `${employeeRoute}/onboarding-application`,
     updateEmployeesPersonalInformationEndpoint: `${employeeRoute}/personal-information`,
 
+
+    // HR Onboarding Management
+    getAllOnboardingApplicationsEndpoint: `${employeeRoute}/hr/onboarding-applications`,
+    getApplicationsByStatusEndpoint: (status: string) => `${employeeRoute}/hr/applications/${status}`,
+    approveApplicationEndpoint: `${employeeRoute}/hr/approve`,
+    rejectApplicationEndpoint: `${employeeRoute}/hr/reject`,
+    addHRFeedbackEndpoint: `${employeeRoute}/hr/feedback`,
+    updateApplicationStatusEndpoint: `${employeeRoute}/hr/application-status`,
+
     //registration
     getTokenEndpoint: `${registrationRoute}/create`,
     verifyTokenEndpoint: `${registrationRoute}/verify`,
     setTokenStatusEndpoint: `${registrationRoute}/setStatus`,
 
     getAllRegistrationEndpoint: `${registrationRoute}`,
+    
+
+    //send email
+    sendEmailEndpoint: `${registrationRoute}/sendEmail`,
+
 
     // Housing endpoints
     getHousingDetailsEndpoint: (email: string) => `${housingRoute}/details/${email}`,
@@ -37,6 +54,10 @@ export const endpoints = {
     getAllFacilityReportsEndpoint: `${housingRoute}/facility-reports`,
 
     registrationURL: `http://localhost:5173/registration?token=`,
+
+    //file upload endpoints
+    uploadFileEndpoint: `${fileRoute}/upload`,
+    getUserFilesEndpoint: (username: string) => `${fileRoute}/user/${username}/files`,
 }
 
 console.log(endpoints)

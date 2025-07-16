@@ -48,6 +48,16 @@ export const config = {
 
   //Frontend URL
   frontendUrl: process.env.FRONTEND_URL,
+
+
+  //AWS_SERVICE
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  awsRegion: process.env.AWS_REGION,
+  AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
+
+  // awsBucketUrl: process.env.AWS_BUCKET_URL,
+  // awsBucketRegion: process.env.AWS_BUCKET_REGION,
 };
 
 // 验证必需的配置
@@ -82,4 +92,21 @@ if (!config.employeeCollectionName) {
 
 if (!config.employeeDatabaseName) {
   throw new Error('EMPLOYEE_DATABASE_NAME environment variable is not set');
+}
+
+// 验证 AWS 相关配置
+if (!config.awsAccessKeyId) {
+  throw new Error('AWS_ACCESS_KEY_ID environment variable is not set');
+}
+
+if (!config.awsSecretAccessKey) {
+  throw new Error('AWS_SECRET_ACCESS_KEY environment variable is not set');
+}
+
+if (!config.awsRegion) {
+  throw new Error('AWS_REGION environment variable is not set');
+}
+
+if (!config.AWS_BUCKET_NAME) {
+  throw new Error('AWS_BUCKET_NAME environment variable is not set');
 }

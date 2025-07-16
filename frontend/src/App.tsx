@@ -7,13 +7,15 @@ import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/empl
 import LoginPage from './pages/loginPage';
 import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
 import HousingManagement from './pages/hrPages/pages/housingManagement/HousingManagement';
-import RegistrationPage from './pages/employeesPage/pages/registration';
+import RegistrationPage from './pages/employeesPage/pages/registrationPage/RegistrationPage';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
 import HousingPage from './pages/employeesPage/pages/housingPage/HousingPage';
 import FacilityReportsPage from './pages/employeesPage/pages/facilityReportsPage/FacilityReportsPage';
 import FacilityReportDetailPage from './pages/employeesPage/pages/facilityReportDetailPage/FacilityReportDetailPage';
+import FileUploadTestPage from './pages/employeesPage/pages/fileUploadTestPage/FileUploadTestPage';
+import { RegistrationProvider } from './contexts/RegistrationContext';
 
 function App() {
   const {isAuthenticated,user} = useAuth();
@@ -22,7 +24,14 @@ function App() {
     <Routes>
       <Route path="/login" element={isAuthenticated?<Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/>:<LoginPage/>}/>
 
-      <Route path="/registration" element={<RegistrationPage />} />
+      <Route
+        path="/registration"
+        element={
+          <RegistrationProvider>
+            <RegistrationPage />
+          </RegistrationProvider>
+        }
+      />
 
       <Route path="/hr" element={<ProtectedRoute requiredRole="HR"><HRDashboard/></ProtectedRoute>}/>
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
@@ -53,6 +62,10 @@ function App() {
       <Route 
         path="/employee/facility-reports/:reportId" 
         element={<ProtectedRoute requiredRole='Employee'><FacilityReportDetailPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/file-upload-test" 
+        element={<ProtectedRoute requiredRole='Employee'><FileUploadTestPage/></ProtectedRoute>}
       />
 
       {/* 默认路由 */} 

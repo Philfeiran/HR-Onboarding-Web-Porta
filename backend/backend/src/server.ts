@@ -6,6 +6,8 @@ import authRoutes from './routes/authRouter';
 import employeeRoutes from './routes/employeeRouter';
 import registrationRoutes from './routes/registrationRoutes';
 import housingRoutes from './routes/housingRouter';
+
+import awsS3Routes from './routes/awsS3Router';
 // import { connectDB } from './db/dbService';
 import {config} from './config/loadConfig';
 
@@ -47,6 +49,8 @@ async function start() {
   app.use('/api/employees', employeeRoutes);
   app.use('/api/registration', registrationRoutes);
   app.use('/api/housing', housingRoutes);
+
+  app.use('/api/files', awsS3Routes);
 
   // 错误处理中间件
   app.use((err: any, req: any, res: any, next: any) => {

@@ -43,5 +43,64 @@ export class EmployeeModel{
         return result;
     }
 
+    // HR相关方法
+    // 根据状态获取申请
+    async getApplicationsByStatus(status: "Pending" | "Approved" | "Rejected") {
+        const result = await this.collection.find({ status }).toArray();
+        return result;
+    }
+
+    // 更新申请状态
+    async updateApplicationStatus(email: string, status: "Pending" | "Approved" | "Rejected", reviewedBy: string) {
+        const result = await this.collection.updateOne(
+            { email },
+            { 
+                $set: { 
+                    status,
+                    statusUpdatedAt: new Date(),
+                    "hrFeedback.reviewedBy": reviewedBy,
+                    "hrFeedback.reviewedAt": new Date(),
+                    "hrFeedback.updatedAt": new Date()
+                }
+            }
+        );
+        return result;
+    }
+
+    // 添加HR反馈
+    async addHRFeedback(email: string, comment: string, reviewedBy: string) {
+        const result = await this.collection.updateOne(
+            { email },
+            { 
+                $set: { 
+                    "hrFeedback.comment": comment,
+                    "hrFeedback.reviewedBy": reviewedBy,
+                    "hrFeedback.reviewedAt": new Date(),
+                    "hrFeedback.updatedAt": new Date()
+                }
+            }
+        );
+        return result;
+    }
+
+    // 获取所有onboarding申请（包含基本信息用于HR查看）
+    async getAllOnboardingApplications() {
+        const result = await this.collection.find(
+            { status: { $in: ["Pending", "Approved", "Rejected"] } },
+            { 
+                projection: {
+                    firstName: 1,
+                    lastName: 1,
+                    email: 1,
+                    status: 1,
+                    submittedAt: 1,
+                    statusUpdatedAt: 1,
+                    hrFeedback: 1
+                }
+            }
+        ).toArray();
+        return result;
+    }
+
 }
 

@@ -24,6 +24,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { GridLegacy as Grid } from "@mui/material";
 
 import {
   Person,
