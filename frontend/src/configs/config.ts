@@ -10,7 +10,8 @@ export const endpoints = {
     // Endpoints
     loginEndpoint: `${authRoute}/login`,
     registerEndpoint: `${authRoute}/register`,
-
+    checkEmailEndpoint: `${authRoute}/check-email`,
+    checkUsernameEndpoint: `${authRoute}/check-username`,
 
     //employee
     getAllEmployeesEndpoint: `${employeeRoute}`,
@@ -19,7 +20,7 @@ export const endpoints = {
     updateEmployeesPersonalInformationEndpoint: `${employeeRoute}/personal-information`,
 
     //registration
-    getTokenEndpoint: `${registrationRoute}/create`,
+    sendEmailEndpoint: `${registrationRoute}/sendEmail`,
     verifyTokenEndpoint: `${registrationRoute}/verify`,
     setTokenStatusEndpoint: `${registrationRoute}/setStatus`,
 

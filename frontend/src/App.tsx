@@ -1,6 +1,6 @@
-import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
+import { RegistrationProvider } from './contexts/RegistrationContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HRDashboard } from './pages/hrPages/pages/hrDashboard';
 import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/employeeProfiles';
@@ -16,6 +16,7 @@ import HousingPage from './pages/employeesPage/pages/housingPage/HousingPage';
 import FacilityReportsPage from './pages/employeesPage/pages/facilityReportsPage/FacilityReportsPage';
 import FacilityReportDetailPage from './pages/employeesPage/pages/facilityReportDetailPage/FacilityReportDetailPage';
 
+
 function App() {
   const {isAuthenticated,user} = useAuth();
   
@@ -23,7 +24,14 @@ function App() {
     <Routes>
       <Route path="/login" element={isAuthenticated?<Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/>:<LoginPage/>}/>
 
-      <Route path="/registration" element={<RegistrationPage />} />
+      <Route
+        path="/registration"
+        element={
+          <RegistrationProvider>
+            <RegistrationPage />
+          </RegistrationProvider>
+        }
+      />
 
       <Route path="/hr" element={<ProtectedRoute requiredRole="HR"><HRDashboard/></ProtectedRoute>}/>
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
