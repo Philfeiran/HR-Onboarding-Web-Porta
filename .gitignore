@@ -69,4 +69,5 @@ database.test.json
 .pnp.*
 
 # Ignore all .txt files
-*.txt 
+*.txt .env.development
+.env.development

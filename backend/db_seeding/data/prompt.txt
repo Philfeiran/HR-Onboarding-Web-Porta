@@ -1,0 +1,59 @@
+请根据以下字段要求，生成 5 条员工入职表单的测试数据，返回一个 JSON 数组，且仅输出 JSON，不要其他多余文字：
+
+1. 必填字段（每条数据必须包含）：
+   - firstName（字符串）：员工名字
+   - lastName（字符串）：员工姓氏
+   - email（字符串）：合法且唯一的邮箱地址
+   - ssn（字符串）：社会安全号，格式示例 “123-45-6789”
+   - dateOfBirth（字符串，ISO 8601 日期，如 “1995-06-15”）
+   - gender（字符串），可选值 "male"、"female"、"i do not wish to answer"
+
+2. 可选字段（每条数据可随机出现，不必每条都带）：
+   - middleName（字符串）
+   - preferredName（字符串）
+   - profilePictureUrl（字符串）：头像 URL 或占位图 URL
+   - address（对象），包含：
+       • street（字符串）
+       • city（字符串）
+       • state（字符串）
+       • zip（字符串）
+   - cellPhone（字符串）
+   - workPhone（字符串）
+   - car（对象），包含：
+       • make（字符串）
+       • model（字符串）
+       • color（字符串）
+   - citizenship（对象），包含：
+       • status（字符串），可为 "Citizen"、"Green Card"、"Non-citizen"
+       • 如果 status="Non-citizen"，额外提供：
+           – workAuthorization（字符串），可为 "H1-B","L2","F1(CPT/OPT)","H4","Other"
+           – 如果 workAuthorization="F1(CPT/OPT)"，再添加 optReceiptUploaded（布尔）
+           – 如果 workAuthorization="Other"，再添加 otherVisaType（字符串）
+           – visaStartDate、visaEndDate（字符串，ISO 8601 日期）
+   - driversLicense（对象），包含：
+       • number（字符串）
+       • expirationDate（字符串，ISO 8601）
+       • documentUrl（字符串）
+   - reference（对象），包含：
+       • firstName、lastName（字符串）
+       • middleName（可选，字符串）
+       • phone（字符串）
+       • email（字符串）
+       • relationship（字符串）
+   - emergencyContacts（数组），数组中每个元素同 reference 结构
+
+3. 输出示例（仅供格式参考，不要直接重复）：
+[
+  {
+    "firstName": "Alice",
+    "lastName": "Wang",
+    "email": "alice.wang@example.com",
+    "ssn": "123-45-6789",
+    "dateOfBirth": "1995-06-15",
+    "gender": "female",
+    "address": { "street": "123 Main St Apt 4B", "city": "New York", "state": "NY", "zip": "10001" },
+    "citizenship": { "status": "Non-citizen", "workAuthorization": "F1(CPT/OPT)", "optReceiptUploaded": true, "visaStartDate": "2024-07-01", "visaEndDate": "2026-06-30" },
+    "emergencyContacts": [ { "firstName": "John", "lastName": "Doe", "phone": "555-1234", "email": "john.doe@example.com", "relationship": "Friend" } ]
+  },
+  …共 5 条
+]

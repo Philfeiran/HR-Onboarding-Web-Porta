@@ -1,0 +1,16 @@
+/*
+  当用户是RA时（选择YES）， 询问是绿卡还是公民
+  当用户不是RA时（选择NO）， 询问工作授权类型
+    当用户是F1(CPT/OPT)时， 询问OPT收据
+    当用户选择Other时，让用户填写visa title
+  */
+  const isPermanentResidentOrCitizen = watch('isPermanentResidentOrCitizen');
+  const workAuthorizationType = watch('workAuthorizationType');
+
+
+  /*
+  当用户有驾照时， 询问
+  1.驾照号码
+  2.驾照有效期
+  3.驾照复印件
+  */
