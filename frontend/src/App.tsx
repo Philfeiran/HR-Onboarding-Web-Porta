@@ -8,7 +8,7 @@ import LoginPage from './pages/loginPage';
 import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
 import HousingManagement from './pages/hrPages/pages/housingManagement/HousingManagement';
 import HousingAssignment from './pages/hrPages/pages/housingAssignment/HousingAssignment';
-import RegistrationPage from './pages/employeesPage/pages/registration';
+import RegistrationPage from './pages/employeesPage/pages/registrationPage/RegistrationPage';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
