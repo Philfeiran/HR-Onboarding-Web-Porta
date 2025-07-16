@@ -33,18 +33,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   console.log(user);
 
   useEffect(() => {
-    // On app load, check with backend if user is authenticated
     setIsLoading(true);
-    authService.getCurrentUser().then((userData) => {
-      if (userData) {
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-      } else {
+    authService.getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          setUser(null);
+          localStorage.removeItem('user');
+        }
+      })
+      .catch((err) => {
         setUser(null);
         localStorage.removeItem('user');
-      }
-      setIsLoading(false);
-    });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const login = (userData: LoginResponse) => {
@@ -52,7 +58,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
     localStorage.removeItem('user');
   };
