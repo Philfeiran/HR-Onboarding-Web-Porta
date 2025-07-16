@@ -246,7 +246,8 @@ function EmployeeNavbar() {
                     (page.key === "Personal Information" && 
                      currentEmployee?.status === "Never Submitted") ||
                     (page.key === "Visa Status Management" && 
-                     currentEmployee?.workAuthorization?.type !== "F1(CPT/OPT)") ||
+                     currentEmployee?.workAuthorization?.type && 
+                     currentEmployee.workAuthorization.type !== "F1(CPT/OPT)") ||
                     (page.key === "Housing" && 
                      currentEmployee?.status !== "Approved")
                   }

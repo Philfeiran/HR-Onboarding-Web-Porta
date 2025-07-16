@@ -15,6 +15,8 @@ import PersonalInformationPage from './pages/employeesPage/pages/personalInforma
 import HousingPage from './pages/employeesPage/pages/housingPage/HousingPage';
 import FacilityReportsPage from './pages/employeesPage/pages/facilityReportsPage/FacilityReportsPage';
 import FacilityReportDetailPage from './pages/employeesPage/pages/facilityReportDetailPage/FacilityReportDetailPage';
+import VisaStatusPage from './pages/employeesPage/pages/visaStatusPage/VisaStatusPage';
+import VisaStatusManagement from './pages/hrPages/pages/visaStatusManagement/VisaStatusManagement';
 
 
 function App() {
@@ -38,6 +40,7 @@ function App() {
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
       <Route path="/hr/housing" element={<ProtectedRoute requiredRole="HR"><HousingManagement/></ProtectedRoute>}/>
       <Route path="/hr/housing-assignment" element={<ProtectedRoute requiredRole="HR"><HousingAssignment/></ProtectedRoute>}/>
+      <Route path="/hr/visa-status" element={<ProtectedRoute requiredRole="HR"><VisaStatusManagement/></ProtectedRoute>}/>
      
       {/* 员工端路由 */}
       <Route 
@@ -63,6 +66,10 @@ function App() {
       <Route 
         path="/employee/facility-reports/:reportId" 
         element={<ProtectedRoute requiredRole='Employee'><FacilityReportDetailPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/visa-status" 
+        element={<ProtectedRoute requiredRole='Employee'><VisaStatusPage/></ProtectedRoute>}
       />
 
       {/* 默认路由 */} 

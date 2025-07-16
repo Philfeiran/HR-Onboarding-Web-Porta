@@ -128,7 +128,7 @@ function ResponsiveAppBar() {
         navigate('/hr/employees');
         break;
       case 'Visa Status Management':
-        // navigate('/hr/visa-status');
+        navigate('/hr/visa-status');
         break;
       case 'Hiring Management':
         navigate('/hr/hiring');
@@ -218,9 +218,7 @@ function ResponsiveAppBar() {
                   key={page.key}
                   onClick={() => handlePageNavigation(page.key)}
                   startIcon={page.icon}
-                  disabled={
-                    page.key === 'Visa Status Management'
-                  }
+                  disabled={false}
                 >
                   {page.name}
                 </StyledNavButton>
