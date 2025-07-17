@@ -107,18 +107,26 @@ const VisaStatusManagement: React.FC = () => {
         console.log('No data returned from API, showing mock data for development');
         const mockData = [
           {
-            employeeId: 'employee1@example.com',
-            employeeName: 'John Doe',
-            employeeEmail: 'john.doe@example.com',
+            employeeId: 'emp001',
+            employeeName: 'Alice Johnson',
+            employeeEmail: 'alice.johnson@example.com',
             documentType: 'optReceipt',
             status: 'pending',
             uploadedAt: new Date().toISOString(),
           },
           {
-            employeeId: 'employee2@example.com',
-            employeeName: 'Jane Smith',
-            employeeEmail: 'jane.smith@example.com',
+            employeeId: 'emp002',
+            employeeName: 'David Lee',
+            employeeEmail: 'david.lee@example.com',
             documentType: 'optEad',
+            status: 'pending',
+            uploadedAt: new Date().toISOString(),
+          },
+          {
+            employeeId: 'emp003',
+            employeeName: 'Maria Gomez',
+            employeeEmail: 'maria.gomez@example.com',
+            documentType: 'i983',
             status: 'pending',
             uploadedAt: new Date().toISOString(),
           },
@@ -130,18 +138,26 @@ const VisaStatusManagement: React.FC = () => {
       // Show mock data for development when API is not available
       const mockData = [
         {
-          employeeId: 'employee1@example.com',
-          employeeName: 'John Doe',
-          employeeEmail: 'john.doe@example.com',
+          employeeId: 'emp001',
+          employeeName: 'Alice Johnson',
+          employeeEmail: 'alice.johnson@example.com',
           documentType: 'optReceipt',
           status: 'pending',
           uploadedAt: new Date().toISOString(),
         },
         {
-          employeeId: 'employee2@example.com',
-          employeeName: 'Jane Smith',
-          employeeEmail: 'jane.smith@example.com',
+          employeeId: 'emp002',
+          employeeName: 'David Lee',
+          employeeEmail: 'david.lee@example.com',
           documentType: 'optEad',
+          status: 'pending',
+          uploadedAt: new Date().toISOString(),
+        },
+        {
+          employeeId: 'emp003',
+          employeeName: 'Maria Gomez',
+          employeeEmail: 'maria.gomez@example.com',
+          documentType: 'i983',
           status: 'pending',
           uploadedAt: new Date().toISOString(),
         },
@@ -169,12 +185,15 @@ const VisaStatusManagement: React.FC = () => {
 
     try {
       setApproving(true);
-      await visaStatusService.approveDocument({
+      const approvalRequest = {
         documentType: selectedDocument.documentType,
-        status: feedback.toLowerCase().includes('reject') ? 'rejected' : 'approved',
+        status: (feedback.toLowerCase().includes('reject') ? 'rejected' : 'approved') as 'approved' | 'rejected',
         feedback: feedback,
         employeeId: selectedDocument.employeeId,
-      });
+      };
+      console.log('Sending approval request:', approvalRequest);
+      console.log('Selected document:', selectedDocument);
+      await visaStatusService.approveDocument(approvalRequest);
       
       // Refresh the list
       await fetchPendingDocuments();
