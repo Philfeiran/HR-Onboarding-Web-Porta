@@ -10,12 +10,11 @@ import visaStatusRoutes from './routes/visaStatusRouter';
 // import { connectDB } from './db/dbService';
 import {config} from './config/loadConfig';
 
-
+const app = express();
 
 async function start() {
   // await connectDB();
 
-  const app = express();
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
@@ -60,4 +59,8 @@ async function start() {
   });
 }
 
-start();
+if (require.main === module) {
+  start();
+}
+
+export default app;

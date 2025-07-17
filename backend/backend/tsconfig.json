@@ -14,10 +14,9 @@
     "useUnknownInCatchVariables": false,
     "types": ["vitest/globals"],
 
-
     //输出
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
   },
   "ts-node": {
     "swc": true,

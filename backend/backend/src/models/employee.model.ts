@@ -3,7 +3,6 @@ import { getCollection } from "../db/dbService";
 import { config } from "../config/loadConfig";
 import {Collection, ObjectId} from 'mongodb';
 
-
 export class EmployeeModel{
     private collectionName: string;
     private databaseName:string;
@@ -43,5 +42,8 @@ export class EmployeeModel{
         return result;
     }
 
+    async getEmployeeById(id: string) {
+        const result = await this.collection.findOne({ _id: new ObjectId(id) });
+        return result;
+    }
 }
-

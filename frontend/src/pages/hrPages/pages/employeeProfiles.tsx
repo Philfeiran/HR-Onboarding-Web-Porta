@@ -176,13 +176,13 @@ export const employeeProfiles: React.FC = () => {
                                         </td>
                                         {/* Work Authorization Title */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            {/* 写个三元表达式 如果是other 的话返回 other filed todo */}
                                             {employee.workAuthorization?.type || 'N/A'}
                                         </td>
                                         {/* Phone Number */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            {employee.workPhone || employee.cellPhone || 'N/A'}
+                                            {employee.cellPhone || employee.workPhone || 'N/A'}
                                         </td>
+                                        {/* Email */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
                                             {employee.email}
                                         </td>

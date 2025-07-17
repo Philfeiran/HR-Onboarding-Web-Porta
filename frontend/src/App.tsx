@@ -12,6 +12,7 @@ import RegistrationPage from './pages/employeesPage/pages/registrationPage/Regis
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
+import EmployeeProfilePage from './pages/hrPages/pages/EmployeeProfilePage';
 import HousingPage from './pages/employeesPage/pages/housingPage/HousingPage';
 import FacilityReportsPage from './pages/employeesPage/pages/facilityReportsPage/FacilityReportsPage';
 import FacilityReportDetailPage from './pages/employeesPage/pages/facilityReportDetailPage/FacilityReportDetailPage';
@@ -20,11 +21,12 @@ import VisaStatusManagement from './pages/hrPages/pages/visaStatusManagement/Vis
 
 
 function App() {
-  const {isAuthenticated,user} = useAuth();
+  const {isAuthenticated, user, isLoading} = useAuth();
+  if (isLoading) return <div>Loading...</div>;
   
   return (
     <Routes>
-      <Route path="/login" element={isAuthenticated?<Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/>:<LoginPage/>}/>
+      <Route path="/login" element={isAuthenticated ? <Navigate to={user?.role === 'HR' ? "/hr" : "/employee"} replace/> : <LoginPage/>}/>
 
       <Route
         path="/registration"
@@ -38,6 +40,7 @@ function App() {
       <Route path="/hr" element={<ProtectedRoute requiredRole="HR"><HRDashboard/></ProtectedRoute>}/>
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
+      <Route path="/hr/employee/:id" element={<ProtectedRoute requiredRole="HR"><EmployeeProfilePage/></ProtectedRoute>} />
       <Route path="/hr/housing" element={<ProtectedRoute requiredRole="HR"><HousingManagement/></ProtectedRoute>}/>
       <Route path="/hr/housing-assignment" element={<ProtectedRoute requiredRole="HR"><HousingAssignment/></ProtectedRoute>}/>
       <Route path="/hr/visa-status" element={<ProtectedRoute requiredRole="HR"><VisaStatusManagement/></ProtectedRoute>}/>

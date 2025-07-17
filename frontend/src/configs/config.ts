@@ -3,16 +3,19 @@ console.log(backendUrl)
 const authRoute = `${backendUrl}/api/auth`;
 const employeeRoute = `${backendUrl}/api/employees`;
 const registrationRoute = `${backendUrl}/api/registration`;
+const uploadRoute = `${backendUrl}/api/upload`;
 const housingRoute = `${backendUrl}/api/housing`;
 const visaStatusRoute = `${backendUrl}/api/visa-status`;
 
 export const endpoints = {
-    
     // Endpoints
     loginEndpoint: `${authRoute}/login`,
     registerEndpoint: `${authRoute}/register`,
     checkEmailEndpoint: `${authRoute}/check-email`,
     checkUsernameEndpoint: `${authRoute}/check-username`,
+    meEndpoint: `${authRoute}/me`,
+    logoutEndpoint: `${authRoute}/logout`,
+    uploadFileEndpoint: `${uploadRoute}`,
 
     //employee
     getAllEmployeesEndpoint: `${employeeRoute}`,
