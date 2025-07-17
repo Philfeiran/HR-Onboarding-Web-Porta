@@ -20,6 +20,8 @@ import type { RootState } from "../../../redux/store";
 import { styled } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../themes/theme";
+import { employeeService } from "../../../services/employeeService";
+import { fetchEmployeeByEmail } from "../../../redux/slice/employeeSlice";
 
 // 样式化的AppBar
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -88,6 +90,8 @@ function EmployeeNavbar() {
   const { currentEmployee, loading, error } = useSelector(
     (state: RootState) => state.employee
   );
+  console.log(currentEmployee?.profilePicture);
+  
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -274,7 +278,7 @@ function EmployeeNavbar() {
                   >
                     <StyledAvatar
                       alt={user ? user.userName : "用户"}
-                      src="/static/images/avatar/2.jpg"
+                      src={currentEmployee? currentEmployee.profilePicture : ""}
                     >
                       {user ? user.userName.charAt(0).toUpperCase() : "U"}
                     </StyledAvatar>

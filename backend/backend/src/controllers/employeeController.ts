@@ -51,6 +51,9 @@ export class EmployeeController {
   ): Promise<void> {
     try {
       const { email, dataToSubmit } = req.body;
+      console.log(email);
+      console.log(dataToSubmit);
+      
       if (!email || !dataToSubmit) {
         res
           .status(400)
