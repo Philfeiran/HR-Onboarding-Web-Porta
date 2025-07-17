@@ -1,27 +1,25 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import React from 'react';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import Badge from '@mui/material/Badge';
-import { 
-  Home, 
-  People, 
-  Business, 
-  Work, 
-  HomeWork,
-  Dashboard as DashboardIcon 
-} from '@mui/icons-material';
-import { useAuth } from '../../../contexts/AuthContext';
+import Business from '@mui/icons-material/Business';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import People from '@mui/icons-material/People';
+import Work from '@mui/icons-material/Work';
+import HomeWork from '@mui/icons-material/HomeWork';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import { styled } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../themes/theme';
@@ -83,7 +81,8 @@ const pages = [
   { name: '员工管理', icon: <People />, key: 'Employee' },
   { name: '签证状态管理', icon: <Business />, key: 'Visa Status Management' },
   { name: '招聘管理', icon: <Work />, key: 'Hiring Management' },
-  { name: '住房管理', icon: <HomeWork />, key: 'Housing Management' },
+  { name: '设施报告管理', icon: <HomeWork />, key: 'Housing Management' },
+  { name: '住房分配', icon: <HomeWork />, key: 'Housing Assignment' },
 ];
 
 const settings = ['退出登录'];
@@ -109,8 +108,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    logout();
     navigate('/login');
     setAnchorElUser(null);
   };
@@ -127,13 +126,16 @@ function ResponsiveAppBar() {
         navigate('/hr/employees');
         break;
       case 'Visa Status Management':
-        // navigate('/hr/visa-status');
+        navigate('/hr/visa-status');
         break;
       case 'Hiring Management':
         navigate('/hr/hiring');
         break;
       case 'Housing Management':
-        // navigate('/hr/housing');
+        navigate('/hr/housing');
+        break;
+      case 'Housing Assignment':
+        navigate('/hr/housing-assignment');
         break;
       default:
         break;
@@ -214,10 +216,7 @@ function ResponsiveAppBar() {
                   key={page.key}
                   onClick={() => handlePageNavigation(page.key)}
                   startIcon={page.icon}
-                  disabled={
-                    page.key === 'Visa Status Management' || 
-                    page.key === 'Housing Management'
-                  }
+                  disabled={false}
                 >
                   {page.name}
                 </StyledNavButton>
@@ -281,5 +280,6 @@ function ResponsiveAppBar() {
     </ThemeProvider>
   );
 }
+
 export default ResponsiveAppBar;
 

@@ -16,7 +16,6 @@ import {
   Alert,
   Chip,
   Paper,
-  Grid,
   LinearProgress,
   Avatar,
   Divider,
@@ -25,6 +24,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { Grid } from '@mui/material';
 
 import {
   Person,
@@ -261,87 +261,82 @@ export const EmployeeDashboardPage: React.FC = () => {
           </Box>
         </WelcomeBanner>
 
-        <Grid container spacing={3}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 3 }}>
           {/* 状态卡片 */}
-          <Grid size={4}>
-            <StyledCard>
-              <CardContent sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  {getStatusIcon(currentEmployee?.status || "Never Submitted")}
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    申请状态
-                  </Typography>
-                </Box>
-                <StatusChip
-                  label={currentEmployee?.status || "Never Submitted"}
-                  color={getStatusColor(currentEmployee?.status || "Never Submitted") as any}
-                  variant="filled"
-                />
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                  {getStatusMessage(currentEmployee?.status || "Never Submitted")}
+          <StyledCard>
+            <CardContent sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                {getStatusIcon(currentEmployee?.status || "Never Submitted")}
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  申请状态
                 </Typography>
-              </CardContent>
-            </StyledCard>
-          </Grid>
+              </Box>
+              <StatusChip
+                label={currentEmployee?.status || "Never Submitted"}
+                color={getStatusColor(currentEmployee?.status || "Never Submitted") as any}
+                variant="filled"
+              />
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                {getStatusMessage(currentEmployee?.status || "Never Submitted")}
+              </Typography>
+            </CardContent>
+          </StyledCard>
 
           {/* 个人信息卡片 */}
-          <Grid size={4}>
-            <StyledCard>
-              <CardContent sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Person color="primary" />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    个人信息
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  邮箱：{user?.email}
+          <StyledCard>
+            <CardContent sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                <Person color="primary" />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  个人信息
                 </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  角色：{user?.role}
+              </Box>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                邮箱：{user?.email}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                角色：{user?.role}
+              </Typography>
+              {currentEmployee?.workAuthorization && (
+                <Typography variant="body2" color="text.secondary">
+                  工作授权：{currentEmployee.workAuthorization.type}
                 </Typography>
-                {currentEmployee?.workAuthorization && (
-                  <Typography variant="body2" color="text.secondary">
-                    工作授权：{currentEmployee.workAuthorization.type}
-                  </Typography>
-                )}
-              </CardContent>
-            </StyledCard>
-          </Grid>
+              )}
+            </CardContent>
+          </StyledCard>
 
           {/* 快速操作卡片 */}
-          <Grid size={4}>
-            <StyledCard>
-              <CardContent sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Work color="secondary" />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    快速操作
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  根据您的当前状态，以下是可用的操作：
+          <StyledCard>
+            <CardContent sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                <Work color="secondary" />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  快速操作
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  {getAvailableActions().slice(0, 2).map((action, index) => (
-                    <ActionButton
-                      key={index}
-                      variant="contained"
-                      color={action.color as any}
-                      startIcon={action.icon}
-                      onClick={() => navigate(action.path)}
-                      size="small"
-                    >
-                      {action.title}
-                    </ActionButton>
-                  ))}
-                </Box>
-              </CardContent>
-            </StyledCard>
-          </Grid>
+              </Box>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                根据您的当前状态，以下是可用的操作：
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {getAvailableActions().slice(0, 2).map((action, index) => (
+                  <ActionButton
+                    key={index}
+                    variant="contained"
+                    color={action.color as any}
+                    startIcon={action.icon}
+                    onClick={() => navigate(action.path)}
+                    size="small"
+                  >
+                    {action.title}
+                  </ActionButton>
+                ))}
+              </Box>
+            </CardContent>
+          </StyledCard>
+        </Box>
 
-          {/* 详细操作列表 */}
-          <Grid size={12}>
+        {/* 详细操作列表 */}
+        <Box sx={{ mt: 3 }}>
             <StyledCard>
               <CardContent sx={{ p: 3 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
@@ -389,9 +384,8 @@ export const EmployeeDashboardPage: React.FC = () => {
                 </List>
               </CardContent>
             </StyledCard>
-          </Grid>
-        </Grid>
-      </StyledContainer>
-    </ThemeProvider>
-  );
-};
+          </Box>
+        </StyledContainer>
+      </ThemeProvider>
+    );
+  };

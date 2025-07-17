@@ -1,27 +1,31 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import React from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Badge,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import Badge from "@mui/material/Badge";
-import { Home, Person, Work, Home as HomeIcon, Business } from "@mui/icons-material";
-import { useAuth } from "../../../contexts/AuthContext";
+import Business from "@mui/icons-material/Business";
+import HomeIcon from "@mui/icons-material/Home";
+import Work from "@mui/icons-material/Work";
+import Person from "@mui/icons-material/Person";
+import Home from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
 import { styled } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../themes/theme";
-import { employeeService } from "../../../services/employeeService";
-import { fetchEmployeeByEmail } from "../../../redux/slice/employeeSlice";
 
 // 样式化的AppBar
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -81,6 +85,7 @@ const pages = [
   { name: "个人信息", icon: <Person />, key: "Personal Information" },
   { name: "签证管理", icon: <Business />, key: "Visa Status Management" },
   { name: "住房", icon: <Home />, key: "Housing" },
+  { name: "设施报告", icon: <Home />, key: "Facility Reports" },
 ];
 
 const settings = ["退出登录"];
@@ -90,8 +95,6 @@ function EmployeeNavbar() {
   const { currentEmployee, loading, error } = useSelector(
     (state: RootState) => state.employee
   );
-  console.log(currentEmployee?.profilePicture);
-  
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -115,8 +118,8 @@ function EmployeeNavbar() {
     setAnchorElUser(null);
   };
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    logout();
     navigate("/login");
     setAnchorElUser(null);
   };
@@ -140,6 +143,9 @@ function EmployeeNavbar() {
         break;
       case "Housing":
         navigate("/employee/housing");
+        break;
+      case "Facility Reports":
+        navigate("/employee/facility-reports");
         break;
       default:
         break;
@@ -208,81 +214,87 @@ function EmployeeNavbar() {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page.key} onClick={() => handlePageNavigation(page.key)}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      {page.icon}
-                      <Typography sx={{ textAlign: "center" }}>{page.name}</Typography>
-                    </Box>
+                  <MenuItem
+                    key={page.key}
+                    onClick={() => handlePageNavigation(page.key)}
+                    disabled={
+                      (page.key === "Onboarding Application" &&
+                        currentEmployee?.status !== "Never Submitted") ||
+                      (page.key === "Personal Information" &&
+                        currentEmployee?.status === "Never Submitted") ||
+                      (page.key === "Visa Status Management" &&
+                        currentEmployee?.workAuthorization?.type && 
+                        currentEmployee.workAuthorization.type !== "F1(CPT/OPT)") ||
+                      (page.key === "Housing" &&
+                        currentEmployee?.status === "Never Submitted")
+                    }
+                  >
+                    <Typography textAlign="center">{page.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
 
-            <StyledLogo
+            <Business
+              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            />
+            <Typography
               variant="h5"
               noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              <Business sx={{ mr: 1 }} />
-              Pilot Tech
-            </StyledLogo>
-
+              Pilot
+            </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <StyledNavButton
                   key={page.key}
                   onClick={() => handlePageNavigation(page.key)}
-                  startIcon={page.icon}
                   disabled={
-                    (page.key === "Onboarding Application" && 
-                     (currentEmployee?.status === "Pending" || currentEmployee?.status === "Approved")) ||
-                    (page.key === "Personal Information" && 
-                     currentEmployee?.status === "Never Submitted") ||
-                    (page.key === "Visa Status Management" && 
-                     currentEmployee?.workAuthorization?.type !== "F1(CPT/OPT)") ||
-                    (page.key === "Housing" && 
-                     currentEmployee?.status !== "Approved")
+                    (page.key === "Onboarding Application" &&
+                      currentEmployee?.status !== "Never Submitted") ||
+                    (page.key === "Personal Information" &&
+                      currentEmployee?.status === "Never Submitted") ||
+                    (page.key === "Visa Status Management" &&
+                      currentEmployee?.workAuthorization?.type && 
+                      currentEmployee.workAuthorization.type !== "F1(CPT/OPT)") ||
+                    (page.key === "Housing" &&
+                      currentEmployee?.status === "Never Submitted")
                   }
                 >
+                  {page.icon}
                   {page.name}
                 </StyledNavButton>
               ))}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="用户设置">
+              <Tooltip title="打开设置">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Badge 
-                    overlap="circular" 
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    badgeContent={
-                      currentEmployee?.status === "Pending" ? (
-                        <Box 
-                          sx={{ 
-                            width: 12, 
-                            height: 12, 
-                            borderRadius: '50%', 
-                            backgroundColor: 'warning.main',
-                            border: '2px solid white'
-                          }} 
-                        />
-                      ) : null
-                    }
-                  >
-                    <StyledAvatar
-                      alt={user ? user.userName : "用户"}
-                      src={currentEmployee? currentEmployee.profilePicture : ""}
-                    >
-                      {user ? user.userName.charAt(0).toUpperCase() : "U"}
-                    </StyledAvatar>
-                  </Badge>
+                  <StyledAvatar>
+                    <img
+                      src="/static/images/avatar/2.jpg"
+                      alt="用户头像"
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </StyledAvatar>
+                  {getStatusBadge()}
                 </IconButton>
               </Tooltip>
               <Menu
@@ -301,26 +313,9 @@ function EmployeeNavbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu} disabled>
-                  <Typography sx={{ textAlign: "center", fontWeight: 600 }}>
-                    {user?.userName}
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu} disabled>
-                  <Typography sx={{ textAlign: "center", fontSize: '0.875rem', color: 'text.secondary' }}>
-                    {user?.email}
-                  </Typography>
-                </MenuItem>
                 {settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={
-                      setting === "退出登录" ? handleLogout : handleCloseUserMenu
-                    }
-                  >
-                    <Typography sx={{ textAlign: "center", color: setting === "退出登录" ? 'error.main' : 'inherit' }}>
-                      {setting}
-                    </Typography>
+                  <MenuItem key={setting} onClick={handleLogout}>
+                    <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -331,4 +326,5 @@ function EmployeeNavbar() {
     </ThemeProvider>
   );
 }
+
 export default EmployeeNavbar;

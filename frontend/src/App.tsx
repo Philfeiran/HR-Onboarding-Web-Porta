@@ -6,11 +6,18 @@ import { HRDashboard } from './pages/hrPages/pages/hrDashboard';
 import { employeeProfiles as EmployeeProfiles } from './pages/hrPages/pages/employeeProfiles';
 import LoginPage from './pages/loginPage';
 import { HiringManagement } from './pages/hrPages/pages/hiringManagement';
+import HousingManagement from './pages/hrPages/pages/housingManagement/HousingManagement';
+import HousingAssignment from './pages/hrPages/pages/housingAssignment/HousingAssignment';
 import RegistrationPage from './pages/employeesPage/pages/registrationPage/RegistrationPage';
 import OnboardingApplicationPage from './pages/employeesPage/pages/onboaringApplicationPage/onboardingApplication.page';
 import { EmployeeDashboardPage } from './pages/employeesPage/pages/employeeDashBoardPage/EmployeeDashboardPage';
 import PersonalInformationPage from './pages/employeesPage/pages/personalInformationPage/PersonalInformationPage';
 import EmployeeProfilePage from './pages/hrPages/pages/EmployeeProfilePage';
+import HousingPage from './pages/employeesPage/pages/housingPage/HousingPage';
+import FacilityReportsPage from './pages/employeesPage/pages/facilityReportsPage/FacilityReportsPage';
+import FacilityReportDetailPage from './pages/employeesPage/pages/facilityReportDetailPage/FacilityReportDetailPage';
+import VisaStatusPage from './pages/employeesPage/pages/visaStatusPage/VisaStatusPage';
+import VisaStatusManagement from './pages/hrPages/pages/visaStatusManagement/VisaStatusManagement';
 
 
 function App() {
@@ -34,6 +41,9 @@ function App() {
       <Route path="/hr/employees" element={<ProtectedRoute requiredRole="HR"><EmployeeProfiles/></ProtectedRoute>}/>
       <Route path="/hr/hiring" element={<ProtectedRoute requiredRole="HR"><HiringManagement/></ProtectedRoute>}/>
       <Route path="/hr/employee/:id" element={<ProtectedRoute requiredRole="HR"><EmployeeProfilePage/></ProtectedRoute>} />
+      <Route path="/hr/housing" element={<ProtectedRoute requiredRole="HR"><HousingManagement/></ProtectedRoute>}/>
+      <Route path="/hr/housing-assignment" element={<ProtectedRoute requiredRole="HR"><HousingAssignment/></ProtectedRoute>}/>
+      <Route path="/hr/visa-status" element={<ProtectedRoute requiredRole="HR"><VisaStatusManagement/></ProtectedRoute>}/>
      
       {/* 员工端路由 */}
       <Route 
@@ -47,6 +57,22 @@ function App() {
       <Route 
         path="/employee/personal-information" 
         element={<ProtectedRoute requiredRole='Employee'><PersonalInformationPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/housing" 
+        element={<ProtectedRoute requiredRole='Employee'><HousingPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/facility-reports" 
+        element={<ProtectedRoute requiredRole='Employee'><FacilityReportsPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/facility-reports/:reportId" 
+        element={<ProtectedRoute requiredRole='Employee'><FacilityReportDetailPage/></ProtectedRoute>}
+      />
+      <Route 
+        path="/employee/visa-status" 
+        element={<ProtectedRoute requiredRole='Employee'><VisaStatusPage/></ProtectedRoute>}
       />
 
       {/* 默认路由 */} 

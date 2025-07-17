@@ -4,7 +4,6 @@ import { fetchEmployees } from '../../../redux/slice/employeeSlice';
 import type Employee from '../../../types/employee.types';
 import type { RootState, AppDispatch } from '../../../redux/store';
 import NavBar from '../navBar/navBar';
-import { Link } from 'react-router-dom';
 
 export const employeeProfiles: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -157,21 +156,19 @@ export const employeeProfiles: React.FC = () => {
                                 {sortedEmployees.map((employee, index) => (
                                     <tr key={index} style={{ borderBottom: '1px solid #ddd' }}>
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            <Link
-                                                to={`/hr/employee/${employee._id}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            <button
+                                                onClick={() => openEmployeeProfile(employee)}
                                                 style={{
+                                                    background: 'none',
+                                                    border: 'none',
                                                     color: '#007bff',
                                                     textDecoration: 'underline',
                                                     cursor: 'pointer',
-                                                    fontSize: '14px',
-                                                    background: 'none',
-                                                    border: 'none',
+                                                    fontSize: '14px'
                                                 }}
                                             >
                                                 {employee.firstName || ''} {employee.lastName || ''}
-                                            </Link>
+                                            </button>
                                         </td>
                                         {/* SSN */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
@@ -179,13 +176,13 @@ export const employeeProfiles: React.FC = () => {
                                         </td>
                                         {/* Work Authorization Title */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            {/* 写个三元表达式 如果是other 的话返回 other filed todo */}
                                             {employee.workAuthorization?.type || 'N/A'}
                                         </td>
                                         {/* Phone Number */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
-                                            {employee.workPhone || employee.cellPhone || 'N/A'}
+                                            {employee.cellPhone || employee.workPhone || 'N/A'}
                                         </td>
+                                        {/* Email */}
                                         <td style={{ padding: '12px', border: '1px solid #ddd' }}>
                                             {employee.email}
                                         </td>

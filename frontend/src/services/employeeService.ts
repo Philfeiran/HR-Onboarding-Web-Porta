@@ -3,6 +3,24 @@ import { endpoints } from "../configs/config";
 import type Employee from "../types/employee.types";
 
 export const employeeService = {
+  async getAllEmployees(): Promise<Employee[]> {
+    try {
+      const response = await http.get(endpoints.getAllEmployeesEndpoint);
+      return response.data;
+    } catch (error: any) {
+      throw new Error("Failed to fetch employees");
+    }
+  },
+
+  async getEmployeeByEmail(email: string): Promise<Employee> {
+    try {
+      const response = await http.get(endpoints.getEmployeeByEmailEndpoint(email));
+      return response.data;
+    } catch (error: any) {
+      throw new Error("Failed to fetch employee");
+    }
+  },
+
   async submitOnboardingApplication(
     email: string,
     dataToSubmit: Partial<Employee>

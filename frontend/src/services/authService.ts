@@ -27,16 +27,5 @@ export const authService = {
       }
       throw new Error('登录失败，请稍后重试');
     }
-  },
-  async getCurrentUser(): Promise<LoginResponse | null> {
-    try {
-      const response = await http.get(endpoints.meEndpoint);
-      return response.data;
-    } catch (error: any) {
-      return null;
-    }
-  },
-  async logout(): Promise<void> {
-    await http.post(endpoints.logoutEndpoint);
   }
 }; 
