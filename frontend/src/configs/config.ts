@@ -4,6 +4,7 @@ const authRoute = `${backendUrl}/api/auth`;
 const employeeRoute = `${backendUrl}/api/employees`;
 const registrationRoute = `${backendUrl}/api/registration`;
 const housingRoute = `${backendUrl}/api/housing`;
+const visaStatusRoute = `${backendUrl}/api/visa-status`;
 
 export const endpoints = {
     
@@ -37,6 +38,15 @@ export const endpoints = {
     addCommentToReportEndpoint: `${housingRoute}/facility-reports/comment`,
     updateReportStatusEndpoint: `${housingRoute}/facility-reports/status`,
     getAllFacilityReportsEndpoint: `${housingRoute}/facility-reports`,
+
+    // Visa Status endpoints
+    getVisaStatusEndpoint: (employeeId: string) => `${visaStatusRoute}/${employeeId}`,
+    getVisaStatusByEmailEndpoint: (email: string) => `${visaStatusRoute}/email/${email}`,
+    createVisaStatusEndpoint: `${visaStatusRoute}`,
+    uploadDocumentEndpoint: `${visaStatusRoute}/upload`,
+    approveDocumentEndpoint: `${visaStatusRoute}/approve`,
+    getPendingDocumentsEndpoint: `${visaStatusRoute}/pending`,
+    getAllVisaStatusesEndpoint: `${visaStatusRoute}`,
 
     registrationURL: `http://localhost:5173/registration?token=`,
 }

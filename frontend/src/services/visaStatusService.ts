@@ -1,4 +1,5 @@
 import https from '../utils/https';
+import { endpoints } from '../configs/config';
 import type { 
   VisaStatusData, 
   DocumentUploadRequest, 
@@ -6,12 +7,10 @@ import type {
   DocumentType 
 } from '../types/visaStatus.types';
 
-const BASE_URL = '/api/visa-status';
-
 export const visaStatusService = {
   // Get visa status for an employee
   async getVisaStatus(employeeId: string): Promise<VisaStatusData> {
-    const response = await https.get(`${BASE_URL}/${employeeId}`);
+    const response = await https.get(endpoints.getVisaStatusEndpoint(employeeId));
     return response.data;
   },
 
@@ -22,7 +21,7 @@ export const visaStatusService = {
     formData.append('file', request.file);
     formData.append('employeeId', request.employeeId);
 
-    await https.post(`${BASE_URL}/upload`, formData, {
+    await https.post(endpoints.uploadDocumentEndpoint, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -31,7 +30,7 @@ export const visaStatusService = {
 
   // Download I-983 template (empty or sample)
   async downloadI983Template(templateType: 'empty' | 'sample'): Promise<Blob> {
-    const response = await https.get(`${BASE_URL}/i983-template/${templateType}`, {
+    const response = await https.get(`${endpoints.getAllVisaStatusesEndpoint}/i983-template/${templateType}`, {
       responseType: 'blob',
     });
     return response.data;
@@ -39,19 +38,19 @@ export const visaStatusService = {
 
   // Get document status for HR approval
   async getDocumentStatus(employeeId: string, documentType: DocumentType) {
-    const response = await https.get(`${BASE_URL}/${employeeId}/document/${documentType}`);
+    const response = await https.get(`${endpoints.getVisaStatusEndpoint(employeeId)}/document/${documentType}`);
     return response.data;
   },
 
   // HR approves or rejects a document
   async approveDocument(request: DocumentApprovalRequest): Promise<void> {
-    await https.post(`${BASE_URL}/approve`, request);
+    await https.post(endpoints.approveDocumentEndpoint, request);
   },
 
   // Get all pending documents for HR
   async getPendingDocuments(): Promise<any[]> {
     try {
-      const response = await https.get(`${BASE_URL}/pending`);
+      const response = await https.get(endpoints.getPendingDocumentsEndpoint);
       console.log('Pending documents response:', response.data);
       return Array.isArray(response.data) ? response.data : [];
     } catch (error) {
