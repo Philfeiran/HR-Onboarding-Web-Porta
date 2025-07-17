@@ -289,7 +289,7 @@ function EmployeeNavbar() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <StyledAvatar>
                     <img
-                      src="/static/images/avatar/2.jpg"
+                      src={currentEmployee?.profilePicture || "/default-avatar.png"}
                       alt="用户头像"
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
